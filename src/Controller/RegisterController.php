@@ -23,6 +23,7 @@ class RegisterController extends AbstractController
         $form = $this->createForm(RegisterUserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
+            // dd($form->getData());
             $em->persist($user);
             $em->flush();
         }
