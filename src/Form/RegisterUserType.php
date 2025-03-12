@@ -69,7 +69,7 @@ class RegisterUserType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => "Valider",
                 'attr'  => [
-                    'class' => "Ibtn btn-success"
+                    'class' => "btn btn-success"
                 ]
             ])
         ;
