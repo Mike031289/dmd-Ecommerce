@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RegisterController extends AbstractController
 {
-    #[Route('/inscription')]
+    #[Route('/inscription', name: 'app_register')]
     public function index(Request $request, EntityManagerInterface $em): Response
     {
         //si le formulaire est soumis alors:
