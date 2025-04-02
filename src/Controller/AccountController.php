@@ -30,6 +30,12 @@ final class AccountController extends AbstractController
         
         if($form->isSubmitted() && $form->isValid()){
             $em->flush();
+            
+            $this->addFlash(
+                'success',
+                'Votre mot de passe est correctement mis à jour'
+            );
+     
         }
         return $this->render('account/password.html.twig', [
             'modifyPwd' => $form->createView()
