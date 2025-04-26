@@ -31,7 +31,7 @@ class CategoryCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name')->setLabel('Titre')->setHelp('Titre de lacatégorie'),
-            SlugField::new('slug')->setLabel('URL')->setTargetFieldName('name')->setHelp('URL de votre catégorie')
+            SlugField::new('slug')->setLabel('URL')->setTargetFieldName('name')->setHelp('URL de votre catégorie générée automatiquement')
         ];
     }
 
