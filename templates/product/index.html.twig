@@ -6,7 +6,7 @@
     <div class="row">
       <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{ path('app_category', {'slug': product.category.name })}}">{{product.category.name }}</a></li>
+          <li class="breadcrumb-item"><a class="text-dark" href="{{ path('app_category', {'slug': product.category.slug })}}">{{product.category.name }}</a></li>
           <li class="breadcrumb-item active" aria-current="page">{{product.name }}</li>
         </ol>
       </nav>
@@ -15,9 +15,9 @@
       </div>
       <div class="col-md-4 m-auto product-description">
         <h1 class="text-center">{{product.name }}</h1>
-        <p class="text-center">{{product.price }}</p>
+        <p class="text-center">{{product.__getPriceWt|price }}</p>
         <p class="">{{ product.description|raw }}</p>
-        <a href="#" class="w-100 btn btn-dark mt-5">Ajouter au pannier</a>
+        <a href="#" class="w-100 btn btn-dark mt-4">Ajouter au pannier</a>
       </div>
     </div>
   </div>
