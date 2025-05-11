@@ -13,6 +13,10 @@ final class CategoryController extends AbstractController
     public function index($slug, CategoryRepository $categoryRepository): Response
     {
         $category = $categoryRepository->findOneBySlug($slug);
+
+        if (!$category){
+            return $this->redirectToRoute('app_home');
+        }
         return $this->render('category/index.html.twig', [
             'category' => $category,
         ]);
