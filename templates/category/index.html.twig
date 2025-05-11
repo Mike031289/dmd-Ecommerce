@@ -8,13 +8,15 @@
 
         <div class="row">
             {% for product in category.products %}
-                <div class="card col-md-3 m-2 p-0">
-                    <img src="/uploads/{{product.illustration}}" class="card-img-top" alt="image-produit">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="card-text">{{ product.description }}</p>
-                        <a href="#" class="btn btn-primary">Ajouter au pannier</a>
-                    </div>
+                <div class="card col-md-3 p-0 m-1">
+                    <a class="link-offset-2 link-underline link-underline-opacity-0 text-dark" href="{{ path('app_product', { 'slug': product.slug }) }}">
+                        <img src="/uploads/{{product.illustration}}" class="card-img-top" alt="{{ product.name }}">
+                        <div class="card-body text-center">
+                            <strong class="card-title">{{ product.name }}</strong></br>
+                            <span claas="d-block">{{ product.__getPriceWt }}</span></br>
+                            <a href="#" class="btn btn-dark">Ajouter au pannier</a>
+                        </div>
+                    </a>
                 </div>
             {% endfor %}
         </div>

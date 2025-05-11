@@ -100,6 +100,13 @@ class Product
         return $this;
     }
 
+    /*this function calculate the price with taxe (prix TTC)*/
+    public function __getPriceWt()
+    {
+        $coeff = 1 + $this->tva/100;
+        return $coeff * $this->price;
+    }
+
     public function getTva(): ?float
     {
         return $this->tva;
