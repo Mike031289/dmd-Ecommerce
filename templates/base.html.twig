@@ -29,15 +29,11 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
+              {% for category in allCategories %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('app_category', { 'slug' : category.slug })}}">{{ category.name }}</a>
+                </li>
+              {% endfor %}
             </ul>
             <div class="speed-menu">
             {% if app.user %}
@@ -77,9 +73,9 @@
       <!-- FOOTER -->
       <footer class="container">
         <p>&copy; 2025 Dmd-prod
-          <a href="#">CGV</a>
+          <a class="text-dark" href="#">CGV</a>
           &middot;
-          <a href="#">CGU</a>
+          <a class="text-dark" href="#">CGU</a>
         </p>
       </footer>
     </main>
