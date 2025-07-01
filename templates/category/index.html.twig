@@ -1,24 +1,34 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-
-  <div class="container my-5">
-    <h1>{{ category.name }}</h1>
-    <p> Cette catégorie contient {{ category.products|length }} produit(s).</p>
-
+    <div class="container my-5">
+        <h1>
+            {{ category.name }}
+        </h1>
+        <p>
+            Cette catégorie contient
+            {{ category.products|length }}
+            produit(s).
+        </p>
         <div class="row">
             {% for product in category.products %}
                 <div class="card col-md-3 p-0 pb-3 m-1 text-center">
                     <a class="text-decoration-none text-dark" href="{{ path('app_product', { 'slug': product.slug }) }}">
-                        <img src="/uploads/{{product.illustration}}" class="card-img-top" alt="{{ product.name }}">
-                        <div class="card-body text-center">
-                            <strong class="card-title">{{ product.name }}</strong></br>
+                        <img src="/uploads/{{ product.illustration }}" class="card-img-top" alt="{{ product.name }}">
+                            <div class="card-body text-center">
+                                <strong class="card-title">
+                                    {{ product.name }}
+                                </strong>
+                            </br>
                         </div>
                     </a>
-                    <span claas="">{{ product.__getPriceWt|price }}</span></br>
-                    <a href="#" class="btn btn-dark m-auto">Ajouter au pannier</a>
-                </div>
-            {% endfor %}
-        </div>
-  </div>
-{% endblock %}
+                    <span claas="">
+                        {{ product._getPriceWt|price }}
+                    </span>
+                </br>
+                <a href="{{ path('app_cart_add', { 'id': product.id } ) }}" class="btn btn-dark m-auto">
+                    Ajouter au pannier
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>{% endblock %}

@@ -3,26 +3,90 @@
 {% block body %}
 
     <div class="container my-5">
-        <h1>Mon panier</h1>
-    <div class="row">
-    <div class="col-sm-6 mb-3 mb-sm-0">
+        <h1>
+            Mon panier
+        </h1>
         <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Liste des produits</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div class="card-header">
+                Liste des produits ajoutés
+            </div>
+            <div class="card-body">
+                <div class="row g-0">
+                    <div class="col-md-8">
+                        {% for product in cart %}
+                            <div class="card-body border-bottom pb-3 mb-3">
+                                <div class="d-flex justify-content-between">
+                                    <div class="col-md-2">
+                                        <img src="/uploads/{{ product.object.illustration }}" class="img-fluid rounded-start" alt="{{ product.object.name }}"></div>
+                                        <strong class="card-title">
+                                            {{ product.object.name }}
+                                        </strong>
+                                        <div>
+                                            <p class="card-text">
+                                                <small class="text-body-secondary">
+                                                    Prix unitaire :
+                                                    {{ product.object._getPriceWt|price }}
+                                                </small>
+                                            </p>
+                                            <small>
+                                                Quantité :
+                                                <a href="{{ path('app_cart_decrease', { 'id': product.object.id } ) }}" class="quantity-btn">
+                                                    -
+                                                </a>
+                                                <span class="badge text-bg-secondary mb-3">
+                                                    X
+                                                    {{ product.qty }}
+                                                </span>
+                                                <a href="{{ path('app_cart_add', { 'id': product.object.id } ) }}" class="quantity-btn">
+                                                    +
+                                                </a>
+                                            </small></br>
+                                            <strong>Prix total : </strong> <span class="text-danger">{{ (product.qty * product.object._getPriceWt)|price }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        Récap de mon panier (prix, bouton commander)
+                                    </h5>
+                                    <p class="card-text">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                            </li>
+                                            <li class="list-group-item">
+                                               <h6 class="mb-1">
+                                                    Total produit :
+                                                    <span class="text-info-emphasis">{{ (fullCartQuantity)}}</span>
+                                                </h6>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <h6 class="mb-1">
+                                                    Prix total T.T.C :
+                                                    <span class="text-danger">{{ totalWt|price }}</span>
+                                                </h6>
+                                            </li>
+                                                <li class="list-group-item">
+                                                </li>
+                                        </ul>
+                                    </p>
+                                    <a href="{{ path('app_cart_remove') }}" class="quantity-btn">
+                                        <button type="button" class="btn btn-danger btn-sm">
+                                            Vider le panier
+                                        </button>
+                                    </a>
+                                    <a href="#" class="btn btn-success btn-sm">
+                                        Commander
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Récap de mon panier (prix, bouton commander)</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Commander</a>
-        </div>
-        </div>
-    </div>
-    </div>
     </div>
 {% endblock %}
