@@ -86,3 +86,9 @@
 .product-description {
     text-align:justify;
 }
+.quantity-btn{
+    text-decoration: none;
+    color: #000;
+    font-size:x-large;
+    margin: auto 5px;
+}
