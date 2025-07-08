@@ -1,0 +1,32 @@
+[33md288b44[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdev[m[33m)[m address form config
+[33mcde9f1b[m[33m ([m[1;31morigin/dev[m[33m)[m cart implementation, session with Requestack
+[33mf77f4dd[m CartController and shoping bague template to display product to be order
+[33m3794418[m[33m ([m[1;32mmain[m[33m)[m Merge pull request #8 from Mike031289/admin/easyadmin
+[33mfb86951[m[33m ([m[1;31morigin/admin/easyadmin[m[33m, [m[1;32madmin/easyadmin[m[33m)[m adding required field condition on upload image when updating product
+[33m3c1b8bc[m redirect root to home if category or product dose not exist
+[33m09fc7fa[m creation of gobal variable with twig extenssion and nav-links update
+[33m1a6b654[m first Twig extension 'Price With Taxe with € extension'
+[33m2933de7[m display product in a template with link between product and category
+[33m916bc29[m category controller and template to diplay products by slug
+[33m6b2a7c2[m products add and upload dimage
+[33mbdc9adb[m config category field with helpers
+[33mc690613[m entity category with properties
+[33m3559e81[m EasyAdmin install, AdminDashboard, crudController, easyAdmin config
+[33m1390023[m easyadmin install and easy admin dashboard implementation
+[33m7ac8881[m Merge pull request #7 from Mike031289/security/makeUser
+[33m0e75a74[m[33m ([m[1;31morigin/security/makeUser[m[33m, [m[1;32msecurity/makeUser[m[33m)[m RegisterUserTest
+[33md829170[m adding user account menu with include
+[33m31a4065[m adding flash messages
+[33m1b24651[m password modification with eventLestener and error add
+[33md39ca69[m user account
+[33m34ed5c8[m login and logout configuration and implementation
+[33m9df4fe2[m users account controller
+[33m19be247[m loginForm and userAuthUtils
+[33m6c51dce[m firewalls config
+[33mddd0f4d[m UserRegisterForm with field constraints
+[33me029051[m update composer and symfony v-6.4
+[33m0589544[m reigister form v-1
+[33m33e00e3[m new config for assert-warrning 1
+[33mc7f3b14[m database creation
+[33m07941b4[m make new entity User with his Repository file
+[33m350932d[m Initial commit
