@@ -62,7 +62,7 @@ class AddressUserType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => "Sauvegarder",
                 'attr'  => [
-                    'class' => "btn btn-dark"
+                    'class' => "btn btn-success"
                 ]
             ])
         ;
