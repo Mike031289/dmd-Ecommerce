@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Form\AddressUserType;
 
 final class AccountController extends AbstractController
 {
@@ -41,4 +42,21 @@ final class AccountController extends AbstractController
          'modifyPwd' => $form->createView()
       ]);
    }
+   
+    #[Route('/compte/adresses', name: 'app_account_address')]
+    public function address(): Response
+    {
+        return $this->render('account/addresses.html.twig');
+    }
+    
+    #[Route('/compte/adresse/ajouter', name: 'app_account_address_form')]
+    public function addressForm(Request $request): Response
+    {
+        $from = $this->createForm(AddressUserType::class);
+        $from->handleRequest($request);
+        
+        return $this->render('account/addressForm.html.twig', [
+           'addressForm' => $from
+        ]);
+    }
 }
