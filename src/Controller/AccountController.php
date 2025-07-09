@@ -43,8 +43,8 @@ final class AccountController extends AbstractController
       ]);
    }
    
-    #[Route('/compte/adresses', name: 'app_account_address')]
-    public function address(): Response
+    #[Route('/compte/adresses', name: 'app_account_addresses')]
+    public function addresses(): Response
     {
         return $this->render('account/addresses.html.twig');
     }
