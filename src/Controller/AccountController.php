@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\PasswordUserType;
+use App\Repository\AddressRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,15 +57,51 @@ final class AccountController extends AbstractController
     #[Route('/compte/adresses', name: 'app_account_addresses')]
     public function addresses(): Response
     {
+        // Render the addresses in a Twig template
         return $this->render('account/addresses.html.twig');
     }
     
-    #[Route('/compte/adresse/ajouter', name: 'app_account_address_form')]
-    public function addressForm(Request $request): Response
+    #[Route('/compte/adresses/delete/{id}', name: 'app_account_address_delete')]
+    public function addressDelete($id, AddressRepository $addressRepository): Response
     {
-        $address = new Address();
-        $address->setUser($this->getUser());
+        // Fetch the address by ID, ensuring it belongs to the current user
+        $address = $addressRepository->findOneById($id);
+        // Check if the address exists and belongs to the current user
+        if (!$address || $address->getUser() !== $this->getUser()) {
+            return $this->redirectToRoute('app_account_addresses');
+        } else {
+            // If the address exists and belongs to the user, proceed with deletion
+            $this->em->remove($address);
+            $this->em->flush();
         
+            // Flash a success message
+            $this->addFlash(
+            'success',
+            'Votre adresse a été supprimée avec succès.'
+            );
+            
+            // Redirect to the addresses page after deletion
+            return $this->redirectToRoute('app_account_addresses');
+        } 
+    }
+    
+    #[Route('/compte/adresse/ajouter/{id}', name: 'app_account_address_form', defaults: ['id' => null])]
+    public function addressForm(Request $request, $id, AddressRepository $addressRepository): Response
+    {
+        // If an ID is provided, you might want to fetch the existing address
+        if ($id) {
+            // Fetch the address by ID, ensuring it belongs to the current user
+            $address = $addressRepository->findOneById($id);
+            // Check if the address exists and belongs to the current user
+            if (!$address || $address->getUser() !== $this->getUser()) {
+               return $this->redirectToRoute('app_account_addresses');
+            }
+        } else {
+            // If no ID, create a new address
+            $address = new Address();
+            $address->setUser($this->getUser());
+        }
+        // Address found and belongs to the user, proceed with the form
         // Create the form for adding a new address
         $from = $this->createForm(AddressUserType::class, $address);
         $from->handleRequest($request);
