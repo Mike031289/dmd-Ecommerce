@@ -39,7 +39,7 @@ final class PasswordController extends AbstractController
          );
 
       }
-      return $this->render('account/password.html.twig', [
+      return $this->render('account/password/index.html.twig', [
          'modifyPwd' => $form->createView()
       ]);
    }

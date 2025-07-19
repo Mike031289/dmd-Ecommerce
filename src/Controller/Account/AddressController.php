@@ -24,7 +24,7 @@ final class AddressController extends AbstractController
     public function index(): Response
     {
         // Render the addresses in a Twig template
-        return $this->render('account/addresses.html.twig');
+        return $this->render('account/address/index.html.twig');
     }
     
     #[Route('/compte/adresses/delete/{id}', name: 'app_account_address_delete')]
@@ -87,7 +87,7 @@ final class AddressController extends AbstractController
             return $this->redirectToRoute('app_account_addresses');
         }
         
-        return $this->render('account/addressForm.html.twig', [
+        return $this->render('account/address/form.html.twig', [
            'addressForm' => $from
         ]);
     }
