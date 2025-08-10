@@ -24,10 +24,16 @@ final class OrderController extends AbstractController
     {
         /** @var User $user The currently authenticated user (loaded from the session) */
         $user = $this->getUser();
-
+        $addresses = $user->getAddresses();
+        
+        // If the user has no addresses, redirect to the address creation page before proceeding with the order
+        if (count($addresses) === 0) {
+            return $this->redirectToRoute('app_account_address_form');
+        }
+        
         // Create the order form and pass the user's addresses as a form option
         $form = $this->createForm(OrderType::class, null, [
-            'addresses' => $user->getAddresses(),
+            'addresses' => $addresses,
         ]);
 
         // Render the order page template with the form view
