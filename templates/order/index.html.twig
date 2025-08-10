@@ -6,6 +6,30 @@
         <h1>
             Ma commande
         </h1>
-        {{ form(deliveryForm) }}
+{# <div class="alert alert-info mt-3" role="alert">
+    <i data-feather="info" class="me-2"></i>
+    Vous pouvez ajouter une adresse de livraison ou en sélectionner une déjà enregistrée.
+</div> #}
+        <h5 class="mt-3">Adresse de livraison</h5>
+        <div class="alert alert-info" role="alert">
+            <i data-feather="info" class="me-2"></i>
+            Sélectionnez l'adresse de livraison souhaitée. Vous pouvez en ajouter une en cliquant sur le bouton (Ajouter une adresse +) ci-dessous.
+        </div>
+        {{ form_start(deliveryForm) }}
+            {{ form_row(deliveryForm.addresses) }}
+            <a type="button" class="btn btn-dark" href="{{ path('app_account_address_form') }}">
+                Ajouter une adresse
+                <i data-feather="plus"></i>
+            </a></br>
+            <hr>
+            <h5 class="mt-3">Mode de livraison</h5>
+            <div class="alert alert-info" role="alert">
+                <i data-feather="info" class="me-2"></i>
+                Sélectionnez le mode de livraison souhaité. Les frais de port seront calculés en    fonction de votre adresse de livraison.
+            </div>
+
+            {{ form_row(deliveryForm.carrier) }}
+        {{ form_end(deliveryForm) }}
+
     </div>   
 {% endblock %}
