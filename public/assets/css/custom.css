@@ -83,12 +83,50 @@
 .speed-menu a {
     margin-right: 20px;
 }
+
 .product-description {
     text-align:justify;
 }
+
 .quantity-btn{
     text-decoration: none;
     color: #000;
     font-size:x-large;
     margin: auto 5px;
+}
+
+#order_addresses, 
+#order_carrier {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+#order_addresses .form-check, 
+#order_carrier .form-check {
+    flex: 1 1 45%;
+    margin: 10px 20px 10px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+}
+
+#order_addresses .form-check:hover, 
+#order_carrier .form-check:hover {
+    background-color: aliceblue;
+    cursor: pointer;
+}
+
+#order_addresses .form-check input[type="radio"], 
+#order_carrier .form-check input[type="radio"] {
+    vertical-align: middle;
+    margin: 14px auto auto -15px;
+}
+
+#order_addresses .form-check label, 
+#order_carrier .form-check label {
+    display: block;
+    margin-bottom: 5px;
+    padding: 10px;
+    font-weight: 600;
 }
