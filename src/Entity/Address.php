@@ -38,6 +38,16 @@ class Address
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    /**
+     * Magic method __toString()
+     * Returns a string representation of the object, 
+     * @return string Formatted string containing personal and address information
+     */
+    public function __toString()
+    {
+        return $this->getFirstname() . ' </br> ' . $this->getLastname() . ' </br>' . $this->getAddress() . ' </br> ' . $this->getPostal() . ' </br> ' . $this->getCity() .' - '. ' ' . $this->getCountry() . ' </br> ' . $this->getPhone(). '</br></br>';
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
