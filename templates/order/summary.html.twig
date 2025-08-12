@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container my-5">
+        <h1>
+            Récaputilatif de ma commande panier
+        </h1>
+        <div class="card">
+            <div class="card-header">
+                Liste des produits ajoutés
+            </div>
+            <div class="card-body">
+                <div class="row g-0">
+                    <div class="col-md-8">
+                        {% for product in cart %}
+                            <div class="card-body border-bottom pb-3 mb-3">
+                                <div class="d-flex justify-content-between">
+                                    <div class="col-md-2">
+                                        <img src="/uploads/{{ product.object.illustration }}" class="img-fluid rounded-start" alt="{{ product.object.name }}"></div>
+                                        <strong class="card-title">
+                                            {{ product.object.name }}
+                                        </strong>
+                                        <div>
+                                            <p class="card-text">
+                                                <small class="text-body-secondary">
+                                                    Prix unitaire :
+                                                    {{ product.object._getPriceWt|price }}
+                                                </small>
+                                            </p>
+                                            <small>
+                                                Quantité :
+                                                <span class="badge text-bg-secondary mb-3">
+                                                    X
+                                                    {{ product.qty }}
+                                                </span>
+                                            </small>
+                                        </br>
+                                        <strong>
+                                            Prix total :
+                                        </strong>
+                                        <span class="text-danger">
+                                            {{ (product.qty * product.object._getPriceWt)|price }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    Récapitulatif de ma commande
+                                </h5>
+                                <p class="card-text">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"></li>
+                                        <li class="list-group-item">
+                                            <h6 class="mb-1 text-small">
+                                                Adresse de livraison :
+                                            </h6>
+                                            <span class="text-info-emphasis">
+                                                {{ (choices.addresses|raw) }}
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <h6 class="mb-1 text-small">
+                                                Transporteur :
+                                            </h6>
+                                            <span class="text-info-emphasis">
+                                                {{ (choices.carrier|raw) }}
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item  text-center">
+                                            <h6 class="mb-1">
+                                                Total produit :
+                                            </h6>
+                                            <span class="text-info-emphasis">
+                                                {{ (fullCartQuantity) }}
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item  text-center">
+                                            <h6 class="mb-1">
+                                                Prix Total Livraison :
+                                            </h6>
+                                            <span class="text-info-emphasis">
+                                                {{ (fullCartQuantity) }}
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item  text-center">
+                                            <h6 class="mb-1">
+                                                Prix total de la commande T.T.C :
+                                            </h6>
+                                            <span class="text-danger">
+                                                {# {{ totalWt|price }} #}
+                                            </span>
+                                            
+                                        </li>
+                                        <li class="list-group-item"></li>
+                                    </ul>
+                                </p>
+                                <a href="{{ path('app_order') }}" class="btn btn-success btn-sm w-100">
+                                    Commander
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
