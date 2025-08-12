@@ -15,7 +15,7 @@ class OrderType extends AbstractType
     {
         $builder
             ->add('addresses', EntityType::class, [
-                'label' => "Choisissez votre adresse de livraison",
+                'label' => '<h6 class="text-muted">Choisissez votre adresse de livraison</h6>',
                 'required' => true,
                 'class'=> Address::class,
                 'expanded' => true,
@@ -23,7 +23,7 @@ class OrderType extends AbstractType
                 'label_html' => true,
             ])
             ->add('carrier', EntityType::class, [
-                'label' => "Choisissez votre transporteur",
+                'label' => '<h6 class="text-muted"> Choisissez votre transporteur</h6>',
                 'required' => true,
                 'class'=> Carrier::class,
                 'expanded' => true,
