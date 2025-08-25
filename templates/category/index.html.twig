@@ -1,34 +1,48 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="container my-5">
-        <h1>
+        <!-- Titre de la catégorie -->
+        <h1 class="mb-3 fw-bold d-flex align-items-center gap-2 text-dark">
+            <i data-feather="grid" class="text-accent" style="width:28px; height:28px;"></i>
             {{ category.name }}
         </h1>
-        <p>
+        <p class="text-muted">
             Cette catégorie contient
-            {{ category.products|length }}
+            <span class="fw-bold text-accent">
+                {{ category.products|length }}
+            </span>
             produit(s).
         </p>
-        <div class="row">
+        <!-- Grille des produits -->
+        <div class="row g-4">
             {% for product in category.products %}
-                <div class="card col-md-3 p-0 pb-3 m-1 text-center">
-                    <a class="text-decoration-none text-dark" href="{{ path('app_product', { 'slug': product.slug }) }}">
-                        <img src="/uploads/{{ product.illustration }}" class="card-img-top" alt="{{ product.name }}">
-                            <div class="card-body text-center">
-                                <strong class="card-title">
-                                    {{ product.name }}
-                                </strong>
-                            </br>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 hover-card bg-white">
+                        <!-- Image produit -->
+                        <a href="{{ path('app_product', { 'slug': product.slug }) }}" class="text-decoration-none text-dark">
+                            <img src="/uploads/{{ product.illustration }}" class="card-img-top rounded-top product-img" alt="{{ product.name }}">
+                                <div class="card-body text-center">
+                                    <!-- Nom produit -->
+                                    <h6 class="fw-bold mb-2">
+                                        {{ product.name }}
+                                    </h6>
+                                    <!-- Prix -->
+                                    <p class="text-accent fw-bold mb-3">
+                                        {{ product._getPriceWt|price }}
+                                    </p>
+                                    <!-- Bouton -->
+                                    <a href="{{ path('app_cart_add', { 'id': product.id } ) }}" class="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center gap-card">
+                                        <i data-feather="shopping-bag"></i>
+                                        Ajouter au panier
+                                    </a>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                    <span claas="">
-                        {{ product._getPriceWt|price }}
-                    </span>
-                </br>
-                <a href="{{ path('app_cart_add', { 'id': product.id } ) }}" class="btn btn-dark m-auto">
-                    Ajouter au pannier
-                </a>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
+        </div>
     </div>
-</div>{% endblock %}
+{% endblock %}
+    
+

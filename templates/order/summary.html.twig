@@ -1,24 +1,27 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="container my-5">
-        <!-- Header du panier -->
-        <h1 class="mb-4 fw-bold d-flex align-items-center gap-3 text-light-card">
-            <i data-feather="file-text" class="text-accent" style="width:32px; height:32px;"></i>
-            Récapitulatif de ma commande
+        <!-- Titre -->
+        <h1 class="mb-4 fw-bold d-flex align-items-center gap-3 text-dark">
+            <i data-feather="file-text" class="text-darck" style="width:32px; height:32px;"></i>
+            Ma commande
         </h1>
-        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
-            <!-- Header de la carte -->
-            <div class="card-header card-header-dark d-flex align-items-center gap-2">
+        <!-- Carte principale -->
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
+            <!-- Header -->
+            <div class="card-header bg-white border-bottom fw-bold py-3 d-flex align-items-center gap-2">
                 <i data-feather="shopping-cart"></i>
-                Contenu de mon panier
+                <span class="text-dark">
+                    Contenu de mon panier
+                </span>
             </div>
-            <!-- Contenu de la carte -->
-            <div class="card-body bg-dark-card text-light-card">
+            <!-- Body -->
+            <div class="card-body">
                 <div class="row g-4">
                     <!-- Liste des produits -->
                     <div class="col-12 col-lg-8">
                         {% for product in cart %}
-                            <div class="card border-0 shadow-sm mb-3 rounded-3 bg-dark-card">
+                            <div class="card border-0 shadow-sm mb-3 rounded-3 bg-white">
                                 <div class="row g-0 align-items-center p-3">
                                     <!-- Image produit -->
                                     <div class="col-12 col-sm-4 col-md-2">
@@ -26,7 +29,7 @@
                                         <!-- Infos produit -->
                                         <div class="col-12 col-sm-8 col-md-10">
                                             <div class="card-body p-0 ps-sm-3">
-                                                <h6 class="fw-bold text-light-card mb-1">
+                                                <h6 class="fw-bold text-dark mb-1">
                                                     {{ product.object.name }}
                                                 </h6>
                                                 <p class="mb-1 text-muted small">
@@ -35,7 +38,7 @@
                                                 </p>
                                                 <p class="mb-1">
                                                     Quantité :
-                                                    <span class="badge badge-dark-card">
+                                                    <span class="badge bg-dark px-3 py-2">
                                                         {{ product.qty }}
                                                     </span>
                                                 </p>
@@ -53,35 +56,35 @@
                                 </div>
                             {% endfor %}
                         </div>
-                        <!-- Récapitulatif de la commande -->
+                        <!-- Récapitulatif -->
                         <div class="col-12 col-lg-4">
-                            <div class="card border-0 shadow-sm rounded-3 bg-dark-card">
+                            <div class="card border-0 shadow-sm rounded-3 bg-white">
                                 <div class="card-body">
-                                    <h5 class="card-title text-center fw-bold mb-3">
-                                        <i data-feather="clipboard" class="me-2 text-accent"></i>
+                                    <h4 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2">
+                                        <i data-feather="file-text"></i>
                                         Récapitulatif
-                                    </h5>
+                                    </h4>
                                     <ul class="list-group list-group-flush mb-3">
-                                        <li class="list-group-item bg-dark-card-light">
-                                            <h6 class="mb-1 small text-light-card">
+                                        <li class="list-group-item">
+                                            <h6 class="mb-1 small text-muted">
                                                 Adresse de livraison :
                                             </h6>
-                                            <span class="text-light-card">
+                                            <span class="text-dark">
                                                 {{ choices.addresses|raw }}
                                             </span>
                                         </li>
-                                        <li class="list-group-item bg-dark-card-light">
-                                            <h6 class="mb-1 small text-light-card">
+                                        <li class="list-group-item">
+                                            <h6 class="mb-1 small text-muted">
                                                 Transporteur :
                                             </h6>
-                                            <span class="text-light-card">
+                                            <span class="text-dark">
                                                 {{ choices.carrier.name|raw }}
                                                 -
                                                 {{ choices.carrier.description|raw }}
                                             </span>
                                         </li>
-                                        <li class="list-group-item bg-dark-card-light">
-                                            <h6 class="mb-1 small text-light-card">
+                                        <li class="list-group-item">
+                                            <h6 class="mb-1 small text-muted">
                                                 Total produits :
                                                 <span class="text-accent">
                                                     {{ fullCartQuantity }}
@@ -89,8 +92,8 @@
                                                 </span>
                                             </h6>
                                         </li>
-                                        <li class="list-group-item bg-dark-card-light text-center">
-                                            <h6 class="mb-1 fw-bold text-light-card">
+                                        <li class="list-group-item text-center">
+                                            <h6 class="mb-1 fw-bold text-dark">
                                                 Prix total de la commande T.T.C :
                                             </h6>
                                             <span class="text-accent fw-bold fs-5">
@@ -98,6 +101,7 @@
                                             </span>
                                         </li>
                                     </ul>
+                                    <!-- Bouton commander -->
                                     <a href="{{ path('app_order') }}" class="btn btn-dark w-100 d-flex align-items-center justify-content-center gap-1">
                                         <i data-feather="check-circle"></i>
                                         Commander
@@ -106,8 +110,14 @@
                             </div>
                         </div>
                     </div>
+                <!-- row -->
                 </div>
+            <!-- card-body -->
             </div>
+        <!-- card -->
         </div>
+    </div>
 {% endblock %}
+    
+
     

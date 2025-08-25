@@ -88,28 +88,63 @@
     text-align:justify;
 }
 
-/* Image produit carrée et sans espace blanc */
+.text-accent {
+    color: #ff5722;
+}
+
+.hover-card:hover {
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.btn-outline-dark {
+    border-radius: 0.75rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-dark:hover {
+    background-color: #111827;
+    color: #fff;
+}
+
 .product-img {
     aspect-ratio: 1 / 1;
     object-fit: cover;
 }
 
-/* Couleur accent moderne (orange Material Design) */
-.text-accent {
-    color: #d3481e !important;
+#cart .shopping-bag {
+    color: #111;
+    font-weight: 600;
 }
 
-/* Dégradé sombre moderne */
+.text-accent {
+    color: #d3481e;
+    /* color: #ff5722; */
+}
+
+.breadcrumb .breadcrumb-item+.breadcrumb-item::before {
+    color: #6c757d;
+}
+
 .bg-gradient-dark {
     background: linear-gradient(135deg, #1f2937, #111827);
-    /* gris anthracite -> noir */
 }
 
-/* Arrondis modernes */
 .card,
 .btn,
 .badge {
     border-radius: 0.75rem !important;
+}
+
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
 .quantity-btn{
