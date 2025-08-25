@@ -1,25 +1,31 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div id="cart" class="container my-5">
 
-    <div class="container my-5">
-        <h1 class="mb-4 fw-bold d-flex align-items-center gap-3">
-            <i data-feather="shopping-cart" class="text-accent"></i>
+        <!-- Titre -->
+        <h1 class="mb-4 fw-bold d-flex align-items-center gap-3 text-dark">
+            <i data-feather="shopping-cart" class="shopping-bag" style="width:32px; height:32px;"></i>
             Mon panier
         </h1>
 
-        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
-            <div class="card-header bg-gradient-dark text-white fw-bold py-3">
-                <i data-feather="list" class="me-2"></i>
-                Liste des produits ajoutés
+        <!-- Carte principale -->
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
+
+            <div class="card-header bg-white fw-bold py-3 border-bottom d-flex align-items-center gap-2">
+                <i data-feather="list"></i>
+                <span class="text-dark">
+                    Liste des produits ajoutés
+                </span>
             </div>
 
             <div class="card-body">
                 <div class="row g-4">
+
                     <!-- Liste des produits -->
                     <div class="col-12 col-lg-8">
                         {% for product in cart %}
-                            <div class="card border-0 shadow-sm mb-4 rounded-3">
+                            <div class="card border-0 shadow-sm mb-4 rounded-3 bg-white">
                                 <div class="row g-0 align-items-center">
                                     <!-- Image produit -->
                                     <div class="col-12 col-sm-4 col-md-3">
@@ -32,28 +38,28 @@
                                                     {{ product.object.name }}
                                                 </h5>
 
-                                                <p class="mb-1">
-                                                    <small class="text-muted">
-                                                        Prix unitaire :
-                                                        {{ product.object._getPriceWt|price }}
-                                                    </small>
+                                                <p class="mb-1 text-muted small">
+                                                    Prix unitaire :
+                                                    {{ product.object._getPriceWt|price }}
                                                 </p>
 
+                                                <!-- Contrôle quantité -->
                                                 <div class="d-flex align-items-center gap-2 mb-2">
                                                     <small>
                                                         Quantité :
                                                     </small>
-                                                    <a href="{{ path('app_cart_decrease', { 'id': product.object.id } ) }}" class="btn btn-light border btn-sm rounded-circle fw-bold">
+                                                    <a href="{{ path('app_cart_decrease', { 'id': product.object.id }) }}" class="btn btn-light border btn-sm rounded-circle">
                                                         <i data-feather="minus"></i>
                                                     </a>
                                                     <span class="badge bg-dark fs-6 px-3 py-2">
                                                         {{ product.qty }}
                                                     </span>
-                                                    <a href="{{ path('app_cart_add', { 'id': product.object.id } ) }}" class="btn btn-light border btn-sm rounded-circle fw-bold">
+                                                    <a href="{{ path('app_cart_add', { 'id': product.object.id }) }}" class="btn btn-light border btn-sm rounded-circle">
                                                         <i data-feather="plus"></i>
                                                     </a>
                                                 </div>
 
+                                                <!-- Prix total produit -->
                                                 <div>
                                                     <strong>
                                                         Prix total :
@@ -69,9 +75,9 @@
                             {% endfor %}
                         </div>
 
-                        <!-- Récapitulatif panier -->
+                        <!-- Récapitulatif -->
                         <div class="col-12 col-lg-4">
-                            <div class="card border-0 shadow-sm rounded-3">
+                            <div class="card border-0 shadow-sm rounded-3 bg-white">
                                 <div class="card-body">
                                     <h4 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2">
                                         <i data-feather="file-text"></i>
@@ -97,6 +103,7 @@
                                         </li>
                                     </ul>
 
+                                    <!-- Boutons -->
                                     <div class="d-flex gap-2">
                                         <a href="{{ path('app_cart_remove') }}" class="btn btn-outline-danger w-50 d-flex align-items-center justify-content-center gap-1">
                                             <i data-feather="trash-2"></i>
@@ -110,12 +117,18 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
+                <!-- row -->
                 </div>
+            <!-- card-body -->
+
             </div>
-
+        <!-- card -->
         </div>
+    </div>
+{% endblock %}
+    
 
-    {% endblock %}
     
 
