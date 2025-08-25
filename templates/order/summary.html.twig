@@ -1,111 +1,113 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="container my-5">
-        <h1>
-            Récaputilatif de ma commande panier
+        <!-- Header du panier -->
+        <h1 class="mb-4 fw-bold d-flex align-items-center gap-3 text-light-card">
+            <i data-feather="file-text" class="text-accent" style="width:32px; height:32px;"></i>
+            Récapitulatif de ma commande
         </h1>
-        <div class="card">
-            <div class="card-header">
-                Liste des produits ajoutés
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+            <!-- Header de la carte -->
+            <div class="card-header card-header-dark d-flex align-items-center gap-2">
+                <i data-feather="shopping-cart"></i>
+                Contenu de mon panier
             </div>
-            <div class="card-body">
-                <div class="row g-0">
-                    <div class="col-md-8">
+            <!-- Contenu de la carte -->
+            <div class="card-body bg-dark-card text-light-card">
+                <div class="row g-4">
+                    <!-- Liste des produits -->
+                    <div class="col-12 col-lg-8">
                         {% for product in cart %}
-                            <div class="card-body border-bottom pb-3 mb-3">
-                                <div class="d-flex justify-content-between">
-                                    <div class="col-md-2">
-                                        <img src="/uploads/{{ product.object.illustration }}" class="img-fluid rounded-start" alt="{{ product.object.name }}"></div>
-                                        <strong class="card-title">
-                                            {{ product.object.name }}
-                                        </strong>
-                                        <div>
-                                            <p class="card-text">
-                                                <small class="text-body-secondary">
+                            <div class="card border-0 shadow-sm mb-3 rounded-3 bg-dark-card">
+                                <div class="row g-0 align-items-center p-3">
+                                    <!-- Image produit -->
+                                    <div class="col-12 col-sm-4 col-md-2">
+                                        <img src="/uploads/{{ product.object.illustration }}" class="img-fluid rounded-start w-100 product-img" alt="{{ product.object.name }}"></div>
+                                        <!-- Infos produit -->
+                                        <div class="col-12 col-sm-8 col-md-10">
+                                            <div class="card-body p-0 ps-sm-3">
+                                                <h6 class="fw-bold text-light-card mb-1">
+                                                    {{ product.object.name }}
+                                                </h6>
+                                                <p class="mb-1 text-muted small">
                                                     Prix unitaire :
                                                     {{ product.object._getPriceWt|price }}
-                                                </small>
-                                            </p>
-                                            <small>
-                                                Quantité :
-                                                <span class="badge text-bg-secondary mb-3">
-                                                    X
-                                                    {{ product.qty }}
-                                                </span>
-                                            </small>
-                                        </br>
-                                        <strong>
-                                            Prix total :
-                                        </strong>
-                                        <span class="text-danger">
-                                            {{ (product.qty * product.object._getPriceWt)|price }}
-                                        </span>
+                                                </p>
+                                                <p class="mb-1">
+                                                    Quantité :
+                                                    <span class="badge badge-dark-card">
+                                                        {{ product.qty }}
+                                                    </span>
+                                                </p>
+                                                <div>
+                                                    <strong>
+                                                        Prix total :
+                                                    </strong>
+                                                    <span class="text-accent fw-bold">
+                                                        {{ (product.qty * product.object._getPriceWt)|price }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    Récapitulatif de ma commande
-                                </h5>
-                                <p class="card-text">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item"></li>
-                                        <li class="list-group-item">
-                                            <h6 class="mb-1 text-small">
+                            {% endfor %}
+                        </div>
+                        <!-- Récapitulatif de la commande -->
+                        <div class="col-12 col-lg-4">
+                            <div class="card border-0 shadow-sm rounded-3 bg-dark-card">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center fw-bold mb-3">
+                                        <i data-feather="clipboard" class="me-2 text-accent"></i>
+                                        Récapitulatif
+                                    </h5>
+                                    <ul class="list-group list-group-flush mb-3">
+                                        <li class="list-group-item bg-dark-card-light">
+                                            <h6 class="mb-1 small text-light-card">
                                                 Adresse de livraison :
                                             </h6>
-                                            <span class="text-info-emphasis">
-                                                {{ (choices.addresses|raw) }}
+                                            <span class="text-light-card">
+                                                {{ choices.addresses|raw }}
                                             </span>
                                         </li>
-                                        <li class="list-group-item">
-                                            <h6 class="mb-1 text-small">
+                                        <li class="list-group-item bg-dark-card-light">
+                                            <h6 class="mb-1 small text-light-card">
                                                 Transporteur :
                                             </h6>
-                                            <span class="text-info-emphasis">
-                                                {{ (choices.carrier|raw) }}
+                                            <span class="text-light-card">
+                                                {{ choices.carrier.name|raw }}
+                                                -
+                                                {{ choices.carrier.description|raw }}
                                             </span>
                                         </li>
-                                        <li class="list-group-item  text-center">
-                                            <h6 class="mb-1">
-                                                Total produit :
+                                        <li class="list-group-item bg-dark-card-light">
+                                            <h6 class="mb-1 small text-light-card">
+                                                Total produits :
+                                                <span class="text-accent">
+                                                    {{ fullCartQuantity }}
+                                                    article(s)
+                                                </span>
                                             </h6>
-                                            <span class="text-info-emphasis">
-                                                {{ (fullCartQuantity) }}
-                                            </span>
                                         </li>
-                                        <li class="list-group-item  text-center">
-                                            <h6 class="mb-1">
-                                                Prix Total Livraison :
-                                            </h6>
-                                            <span class="text-info-emphasis">
-                                                {{ (fullCartQuantity) }}
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item  text-center">
-                                            <h6 class="mb-1">
+                                        <li class="list-group-item bg-dark-card-light text-center">
+                                            <h6 class="mb-1 fw-bold text-light-card">
                                                 Prix total de la commande T.T.C :
                                             </h6>
-                                            <span class="text-danger">
-                                                {# {{ totalWt|price }} #}
+                                            <span class="text-accent fw-bold fs-5">
+                                                {{ (totalWt + choices.carrier.price)|price }}
                                             </span>
-                                            
                                         </li>
-                                        <li class="list-group-item"></li>
                                     </ul>
-                                </p>
-                                <a href="{{ path('app_order') }}" class="btn btn-success btn-sm w-100">
-                                    Commander
-                                </a>
+                                    <a href="{{ path('app_order') }}" class="btn btn-dark w-100 d-flex align-items-center justify-content-center gap-1">
+                                        <i data-feather="check-circle"></i>
+                                        Commander
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 {% endblock %}
+    

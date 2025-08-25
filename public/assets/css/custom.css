@@ -88,6 +88,30 @@
     text-align:justify;
 }
 
+/* Image produit carrée et sans espace blanc */
+.product-img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+/* Couleur accent moderne (orange Material Design) */
+.text-accent {
+    color: #d3481e !important;
+}
+
+/* Dégradé sombre moderne */
+.bg-gradient-dark {
+    background: linear-gradient(135deg, #1f2937, #111827);
+    /* gris anthracite -> noir */
+}
+
+/* Arrondis modernes */
+.card,
+.btn,
+.badge {
+    border-radius: 0.75rem !important;
+}
+
 .quantity-btn{
     text-decoration: none;
     color: #000;
