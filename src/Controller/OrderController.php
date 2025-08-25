@@ -48,12 +48,11 @@ final class OrderController extends AbstractController
     }
     
 
-    #[Route('/commande/recapitulatif', name: 'app_order_summary')]
+    #[Route('/commande/recapitulatif', name: 'app_order_summary', methods: ['POST'])]
     public function add(Request $request, Cart $cart): ? Response
     {
         /** @var User $user The currently authenticated user (loaded from the session) */
         $user = $this->getUser();   
-        $addresses = $user->getAddresses();
         
         $form = $this->createForm(OrderType::class, null, [
             'addresses' => $user->getAddresses(),   
@@ -69,7 +68,7 @@ final class OrderController extends AbstractController
             return $this->render('order/summary.html.twig', [
                 'choices' => $form->getData(),
                 'cart' => $cart->getCart(),
-                
+                'totalWt' => $cart->getTotalWt()
             ]);
         }
     }
