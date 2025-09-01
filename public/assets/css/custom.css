@@ -114,11 +114,6 @@
     object-fit: cover;
 }
 
-#cart .shopping-bag {
-    color: #111;
-    font-weight: 600;
-}
-
 .text-accent {
     color: #d3481e;
     /* color: #ff5722; */
