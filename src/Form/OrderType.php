@@ -30,9 +30,10 @@ class OrderType extends AbstractType
                 'label_html' => true,
             ])
             ->add('submit', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, [
-                'label' => "Valider ma commande",
+                'label' => '<i data-feather="check-circle"></i> Valider ma commande',
+                'label_html' => true,
                 'attr' => [
-                    'class' => 'btn btn-success w-100',
+                    'class' => 'btn btn-success w-100 d-flex align-items-center justify-content-center gap-1',
                 ],
             ])
         ;

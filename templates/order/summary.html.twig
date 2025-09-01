@@ -3,7 +3,7 @@
     <div class="container my-5">
         <!-- Titre -->
         <h1 class="mb-4 fw-bold d-flex align-items-center gap-3 text-dark">
-            <i data-feather="file-text" class="text-darck" style="width:32px; height:32px;"></i>
+            <i data-feather="file-text" class="text-accent" style="width:32px; height:32px;"></i>
             Ma commande
         </h1>
         <!-- Carte principale -->
@@ -39,7 +39,7 @@
                                                 <p class="mb-1">
                                                     Quantité :
                                                     <span class="badge bg-dark px-3 py-2">
-                                                        {{ product.qty }}
+                                                        X {{ product.qty }}
                                                     </span>
                                                 </p>
                                                 <div>
@@ -102,7 +102,7 @@
                                         </li>
                                     </ul>
                                     <!-- Bouton commander -->
-                                    <a href="{{ path('app_order') }}" class="btn btn-dark w-100 d-flex align-items-center justify-content-center gap-1">
+                                    <a href="{{ path('app_order') }}" class="btn btn-success w-100 d-flex align-items-center justify-content-center gap-1">
                                         <i data-feather="check-circle"></i>
                                         Commander
                                     </a>
