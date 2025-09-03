@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Class\Cart;
 use App\Entity\User;
+use App\Entity\Order;
 use App\Form\OrderType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,15 +66,38 @@ final class OrderController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+            //here we will process the registred order in the database
+            
+            //let's create a new Order entity and set its properties
+            $order = new Order(); 
+            
+            $order->setCreatedAt(new \DateTime());
+            $order->setState(0);
+            $order->setCarrierName($form->get('carrier')->getData()->getName());
+            $order->setCarrierPrice($form->get('carrier')->getData()->getPrice());
+            
+            //we need to retrive the delivery address and formate this as to one string  before we set it to the order entity
+            $addressObject = $form->get('addresses')->getData();
+            $address = $addressObject->getFirstname().' '.$addressObject->getLastname();
+            $address .= '<br/>'.$addressObject->getAddress();
+            $address .= '<br/>'.$addressObject->getPostal().' '.$addressObject->getCity();
+            $address .= '<br/>'.$addressObject->getCountry();
+            $address .= $addressObject->getPhone();
+            
+            //now we can set the formatted address to the order entity
+            $order->setDelivery($address);
+            
             // Here you would typically handle the order summary logic, such as displaying the cart contents
             // and allowing the user to confirm their order.
             
-            // For now, we will just render the summary page.
-            return $this->render('order/summary.html.twig', [
-                'choices' => $form->getData(),
-                'cart' => $cart->getCart(),
-                'totalWt' => $cart->getTotalWt()
-            ]);
         }
+        
+        // For now, we will just render the summary page.
+        return $this->render('order/summary.html.twig', [
+            'choices' => $form->getData(),
+            'cart' => $cart->getCart(),
+            'totalWt' => $cart->getTotalWt()
+        ]);
+    
     }
 }

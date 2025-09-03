@@ -35,6 +35,15 @@ class Order
     #[ORM\OneToMany(targetEntity: OrderDetail::class, mappedBy: 'myOrder')]
     private Collection $orderDetails;
 
+    /** State of the order
+     * 0: Not paid
+     * 1: Paid
+     * 2: Shipped
+     * 3: Delivered
+     */
+    #[ORM\Column]
+    private ?int $state = null;
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
@@ -119,6 +128,18 @@ class Order
                 $orderDetail->setMyOrder(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getState(): ?int
+    {
+        return $this->state;
+    }
+
+    public function setState(int $state): static
+    {
+        $this->state = $state;
 
         return $this;
     }
