@@ -4,7 +4,7 @@
         <!-- Titre -->
         <h1 class="mb-4 fw-bold d-flex align-items-center gap-3 text-dark">
             <i data-feather="file-text" class="text-accent" style="width:32px; height:32px;"></i>
-            Ma commande
+            Récapitulatif de ma commande
         </h1>
         <!-- Carte principale -->
         <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
@@ -43,10 +43,10 @@
                                                     </span>
                                                 </p>
                                                 <div>
-                                                    <strong>
+                                                    <span>
                                                         Prix total :
-                                                    </strong>
-                                                    <span class="text-accent fw-bold">
+                                                    </span>
+                                                    <span class="text-accent">
                                                         {{ (product.qty * product.object._getPriceWt)|price }}
                                                     </span>
                                                 </div>
@@ -60,13 +60,13 @@
                         <div class="col-12 col-lg-4">
                             <div class="card border-0 shadow-sm rounded-3 bg-white">
                                 <div class="card-body">
-                                    <h4 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2">
+                                    <h5 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2">
                                         <i data-feather="file-text"></i>
-                                        Récapitulatif
-                                    </h4>
+                                        Informations de livraison
+                                    </h5>
                                     <ul class="list-group list-group-flush mb-3">
                                         <li class="list-group-item">
-                                            <h6 class="mb-1 small text-muted">
+                                            <h6 class="mb-1 fw-bold">
                                                 Adresse de livraison :
                                             </h6>
                                             <span class="text-dark">
@@ -74,7 +74,7 @@
                                             </span>
                                         </li>
                                         <li class="list-group-item">
-                                            <h6 class="mb-1 small text-muted">
+                                            <h6 class="mb-1 fw-bold">
                                                 Transporteur :
                                             </h6>
                                             <span class="text-dark">
@@ -84,7 +84,7 @@
                                             </span>
                                         </li>
                                         <li class="list-group-item">
-                                            <h6 class="mb-1 small text-muted">
+                                            <h6 class="mb-1 fw-bold">
                                                 Total produits :
                                                 <span class="text-accent">
                                                     {{ fullCartQuantity }}
@@ -104,7 +104,7 @@
                                     <!-- Bouton commander -->
                                     <a href="{{ path('app_order') }}" class="btn btn-success w-100 d-flex align-items-center justify-content-center gap-1">
                                         <i data-feather="check-circle"></i>
-                                        Commander
+                                        Payer
                                     </a>
                                 </div>
                             </div>

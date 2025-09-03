@@ -48,9 +48,13 @@ final class OrderController extends AbstractController
     }
     
 
-    #[Route('/commande/recapitulatif', name: 'app_order_summary', methods: ['POST'])]
+    #[Route('/commande/recapitulatif', name: 'app_order_summary')]
     public function add(Request $request, Cart $cart): ? Response
     {
+        if ($request->getMethod() !== 'POST') {
+            return $this->redirectToRoute('app_cart');
+        }
+        
         /** @var User $user The currently authenticated user (loaded from the session) */
         $user = $this->getUser();   
         
