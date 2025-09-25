@@ -93,7 +93,7 @@ class Cart
             return $price;
         }
         foreach ($cart as $product){
-            $price = $price + ($product['object']->_getPriceWt() * $product['qty']);
+            $price += $product['object']->_getPriceWt() * $product['qty'];
         }
         
         return $price;
