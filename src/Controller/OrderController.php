@@ -83,6 +83,7 @@ final class OrderController extends AbstractController
             //let's create a new Order entity and set its properties and the formatted address we just created and save it to the database
             //we will need the entity manager to persist and flush the order entity
             $order = new Order(); 
+            $order->setUser($user);
             $order->setCreatedAt(new \DateTime());
             $order->setState(0);
             $order->setCarrierName($form->get('carrier')->getData()->getName());
