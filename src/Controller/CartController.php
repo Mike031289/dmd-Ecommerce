@@ -13,12 +13,17 @@ final class CartController extends AbstractController
 {
 
    #[Route('/mon-panier', name: 'app_cart')]
-   public function index(Cart $cart): Response
+   public function index(Cart $cart, Request $request): Response
    {
-      return $this->render('cart/index.html.twig', [
-         'cart' => $cart->getCart(),
-         'totalWt' => $cart->getTotalWt(),
-      ]);
+        if (count($cart->getCart()) === 0) {
+            $this->addFlash('warning', 'Votre panier est vide. Veuillez ajouter des articles avant de passer une commande.');
+            return $this->redirect($request->headers->get('referer'));
+        }
+    
+        return $this->render('cart/index.html.twig', [
+            'cart' => $cart->getCart(),
+            'totalWt' => $cart->getTotalWt(),
+        ]);
    }
 
    #[Route('/cart/add/{id}', name: 'app_cart_add')]

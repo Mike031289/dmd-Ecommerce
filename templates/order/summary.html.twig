@@ -95,11 +95,11 @@
                                         </li>
                                         <li class="list-group-item text-center">
                                             <h6 class="mb-1 fw-bold text-dark">
-                                                Prix total de la commande T.T.C :
+                                                Prix total de la commande T.T.C : 
+                                                <span class="text-accent fw-bold fs-5">
+                                                    {{ (totalWt + choices.carrier.price)|price }}
+                                                </span>
                                             </h6>
-                                            <span class="text-accent fw-bold fs-5">
-                                                {{ (totalWt + choices.carrier.price)|price }}
-                                            </span>
                                         </li>
                                     </ul>
                                     <!-- Bouton commander -->
