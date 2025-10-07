@@ -48,9 +48,11 @@ class OrderCrudController extends AbstractCrudController
         return [
             IdField::new('id'),
             DateField::new('createdAt')->setLabel('Date de la commande'),
-            NumberField::new('state')->setLabel('Statut de la commande'),
+            NumberField::new('state')->setLabel('Statut de la commande')->setTemplatePath('admin/state.html.twig'),
             AssociationField::new('user')->setLabel('Nom du client'),
             TextField::new('carrierName')->setLabel('Transporteur'),
+            NumberField::new('totalTva')->setLabel('Total TVA'),
+            NumberField::new('totalWt')->setLabel('Prix total TTC')->setNumDecimals(2),
          ];
     }
     
