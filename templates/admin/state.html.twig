@@ -1,0 +1,17 @@
+{% if field.value == 0 %}
+    <span class="badge badge-secondary">
+        En attente de paiement
+    </span>
+
+{% elseif field.value == 1 %}
+    <span class="badge badge-info">Payée</span>
+{% elseif field.value == 2 %}
+    <span class="badge badge-warning">
+        Préparation en cours
+    </span>
+
+{% elseif field.value == 3 %}
+    <span class="badge badge-success">Livraison en cours</span>
+{% else %}
+    <span class="badge badge-danger">Livrée</span>
+{% endif %}

@@ -53,6 +53,28 @@ class Order
         $this->orderDetails = new ArrayCollection();
     }
 
+    public function getTotalTva()
+    {
+        $products = $this->getOrderDetails();
+        $totalTva = 0;
+        foreach ($products as $product) {
+            $coeff = $product->getProductTva() / 100;
+            $totalTva += $product->getProductPrice() * $coeff;  
+        }
+        return $totalTva;
+    }
+
+    public function getTotalWt()
+    {
+        $products = $this->getOrderDetails();
+        $totalTtc = 0;
+          foreach ($products as $product) {
+            $coeff = 1 + ($product->getProductTva() / 100);
+            $totalTtc += ($product->getProductPrice() * $coeff) * $product->getProductQuantity();  
+        }
+        return $totalTtc + $this->getCarrierPrice();
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -69,7 +91,6 @@ class Order
 
         return $this;
     }
-
     public function getCarrierName(): ?string
     {
         return $this->carrierName;
