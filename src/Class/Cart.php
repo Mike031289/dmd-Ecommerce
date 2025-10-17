@@ -93,7 +93,7 @@ class Cart
             return $price;
         }
         foreach ($cart as $product){
-            $price = $price + ($product['object']->_getPriceWt() * $product['qty']);
+            $price += $product['object']->_getPriceWt() * $product['qty'];
         }
         
         return $price;
@@ -113,7 +113,7 @@ class Cart
      * Summary of getCart
      * This function is used to get all product in a cart (shoping bag), coming from Session
      */
-	public function getCart()
+	public function getCart(): array
 	{
 		return $this->requestStack->getSession()->get('cart', []);
 	}

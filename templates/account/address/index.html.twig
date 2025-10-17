@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container my-5">
+        <h1>
+            Espace membre
+        </h1>
+        <div class="row g-0 my-5">
+            {% include 'account/_menu.html.twig' %}
+            <div class="col-md-8">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="card-title m-3">
+                        Mes adresses
+                    </h5>
+                    <a type="button" class="btn btn-dark" href="{{ path('app_account_address_form') }}">
+                        Ajouter une adresse
+                        <i data-feather="plus"></i>
+                    </a>
+                </div>
+                <div class="card-body p-3">
+                    {% if app.user.addresses is empty %}
+                        <div class="alert alert-warning d-flex align-items-center p-5" role="alert">
+                            <i data-feather="alert-triangle" class="me-2"></i>
+                            <div>
+                                Vous n'avez pas encore d'adresse enregistrée.
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="row">
+                        {% for address in app.user.addresses %}
+                            <div class="col-md-4 mb-2">
+                                <div class="p-3 bg-light h-100 d-flex flex-column justify-content-between shadow-sm rounded">
+                                    <div>
+                                        <strong>{{ address.lastname }} {{ address.firstname }}</strong></br>
+                                        {{ address.address }}</br>
+                                        {{ address.postal }}, {{ address.city }}</br>
+                                        {{ address.country }}</br>
+                                        {{ address.phone }}
+                                    </div>
+                                    <div class="d-flex justify-content-end mt-3">
+                                        <a href="{{ path('app_account_address_form', {'id': address.id}) }}" class="btn btn-light d-flex justify-content-center align-items-center me-2">
+                                            <i data-feather="edit" class="text-info-emphasis"></i>
+                                        </a>
+                                        <a href="{{ path('app_account_address_delete', {'id': address.id}) }}" class="btn btn-light d-flex justify-content-center align-items-center me-2">
+                                            <i data-feather="trash-2" class="text-danger"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

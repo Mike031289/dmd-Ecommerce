@@ -1,92 +1,134 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div id="cart" class="container my-5">
 
-    <div class="container my-5">
-        <h1>
+        <!-- Titre -->
+        <h1 class="mb-4 fw-bold d-flex align-items-center gap-3 text-dark">
+            <i data-feather="shopping-cart" class="text-accent" style="width:32px; height:32px;"></i>
             Mon panier
         </h1>
-        <div class="card">
-            <div class="card-header">
-                Liste des produits ajoutés
+
+        <!-- Carte principale -->
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
+
+            <div class="card-header bg-white fw-bold py-3 border-bottom d-flex align-items-center gap-2">
+                <i data-feather="list"></i>
+                <span class="text-dark">
+                    Liste des produits ajoutés
+                </span>
             </div>
+
             <div class="card-body">
-                <div class="row g-0">
-                    <div class="col-md-8">
+                <div class="row g-4">
+
+                    <!-- Liste des produits -->
+                    <div class="col-12 col-lg-8">
                         {% for product in cart %}
-                            <div class="card-body border-bottom pb-3 mb-3">
-                                <div class="d-flex justify-content-between">
-                                    <div class="col-md-2">
-                                        <img src="/uploads/{{ product.object.illustration }}" class="img-fluid rounded-start" alt="{{ product.object.name }}"></div>
-                                        <strong class="card-title">
-                                            {{ product.object.name }}
-                                        </strong>
-                                        <div>
-                                            <p class="card-text">
-                                                <small class="text-body-secondary">
+                            <div class="card border-0 shadow-sm mb-4 rounded-3 bg-white">
+                                <div class="row g-0 align-items-center">
+                                    <!-- Image produit -->
+                                    <div class="col-12 col-sm-4 col-md-3">
+                                        <img src="/uploads/{{ product.object.illustration }}" class="img-fluid rounded-start w-100 product-img" alt="{{ product.object.name }}"></div>
+
+                                        <!-- Infos produit -->
+                                        <div class="col-12 col-sm-8 col-md-9">
+                                            <div class="card-body">
+                                                <h6 class="fw-bold text-dark mb-2">
+                                                    {{ product.object.name }}
+                                                </h6>
+
+                                                <p class="mb-1 text-muted small">
                                                     Prix unitaire :
                                                     {{ product.object._getPriceWt|price }}
-                                                </small>
-                                            </p>
-                                            <small>
-                                                Quantité :
-                                                <a href="{{ path('app_cart_decrease', { 'id': product.object.id } ) }}" class="quantity-btn">
-                                                    -
-                                                </a>
-                                                <span class="badge text-bg-secondary mb-3">
-                                                    X
-                                                    {{ product.qty }}
-                                                </span>
-                                                <a href="{{ path('app_cart_add', { 'id': product.object.id } ) }}" class="quantity-btn">
-                                                    +
-                                                </a>
-                                            </small></br>
-                                            <strong>Prix total : </strong> <span class="text-danger">{{ (product.qty * product.object._getPriceWt)|price }}</span>
+                                                </p>
+
+                                                <!-- Contrôle quantité -->
+                                                <div class="d-flex align-items-center gap-2 mb-2">
+                                                    <small>
+                                                        Quantité :
+                                                    </small>
+                                                    <a href="{{ path('app_cart_decrease', { 'id': product.object.id }) }}" class="btn btn-light border btn-sm rounded-circle">
+                                                        <i data-feather="minus"></i>
+                                                    </a>
+                                                    <span class="badge bg-dark fs-6 px-3 py-2">
+                                                        X {{ product.qty }}
+                                                    </span>
+                                                    <a href="{{ path('app_cart_add', { 'id': product.object.id }) }}" class="btn btn-light border btn-sm rounded-circle">
+                                                        <i data-feather="plus"></i>
+                                                    </a>
+                                                </div>
+
+                                                <!-- Prix total produit -->
+                                                <div>
+                                                    <span>
+                                                        Prix total :
+                                                    </span>
+                                                    <span class="text-accent">
+                                                        {{ (product.qty * product.object._getPriceWt)|price }}
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             {% endfor %}
                         </div>
-                        <div class="col-sm-4">
-                            <div class="card">
+
+                        <!-- Récapitulatif -->
+                        <div class="col-12 col-lg-4">
+                            <div class="card border-0 shadow-sm rounded-3 bg-white">
                                 <div class="card-body">
-                                    <h5 class="card-title">
-                                        Récap de mon panier (prix, bouton commander)
+                                    <h5 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2">
+                                        <i data-feather="file-text"></i>
+                                        Récapitulatif
                                     </h5>
-                                    <p class="card-text">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">
-                                            </li>
-                                            <li class="list-group-item">
-                                               <h6 class="mb-1">
-                                                    Total produit :
-                                                    <span class="text-info-emphasis">{{ (fullCartQuantity)}}</span>
-                                                </h6>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <h6 class="mb-1">
-                                                    Prix total T.T.C :
-                                                    <span class="text-danger">{{ totalWt|price }}</span>
-                                                </h6>
-                                            </li>
-                                                <li class="list-group-item">
-                                                </li>
-                                        </ul>
-                                    </p>
-                                    <a href="{{ path('app_cart_remove') }}" class="quantity-btn">
-                                        <button type="button" class="btn btn-danger btn-sm">
-                                            Vider le panier
-                                        </button>
-                                    </a>
-                                    <a href="#" class="btn btn-success btn-sm">
-                                        Commander
-                                    </a>
+
+                                    <ul class="list-group list-group-flush mb-3">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span>
+                                                Total produits :
+                                            </span>
+                                            <span class="badge bg-dark fs-6">
+                                                {{ fullCartQuantity }}
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span>
+                                                Prix total T.T.C :
+                                            </span>
+                                            <span class="text-accent fw-bold fs-5">
+                                                {{ totalWt|price }}
+                                            </span>
+                                        </li>
+                                    </ul>
+
+                                    <!-- Boutons -->
+                                    <div class="d-flex gap-2">
+                                        <a href="{{ path('app_cart_remove') }}" class="btn btn-outline-danger w-50 d-flex align-items-center justify-content-center gap-1">
+                                            <i data-feather="trash-2"></i>
+                                            Vider
+                                        </a>
+                                        <a href="{{ path('app_order') }}" class="btn btn-success w-50 d-flex align-items-center justify-content-center gap-1">
+                                            <i data-feather="check-circle"></i>
+                                            Commander
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
+                <!-- row -->
                 </div>
+            <!-- card-body -->
+
             </div>
+        <!-- card -->
         </div>
     </div>
 {% endblock %}
+    
+
+    
+
