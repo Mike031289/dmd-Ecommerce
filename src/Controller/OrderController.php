@@ -78,7 +78,7 @@ final class OrderController extends AbstractController
             $address .= '<br/>'.$addressObject->getAddress();
             $address .= '<br/>'.$addressObject->getPostal().' '.$addressObject->getCity();
             $address .= '<br/>'.$addressObject->getCountry();
-            $address .= $addressObject->getPhone();
+            $address .= '<br/>'.$addressObject->getPhone();
             
             //let's create a new Order entity and set its properties and the formatted address we just created and save it to the database
             //we will need the entity manager to persist and flush the order entity
