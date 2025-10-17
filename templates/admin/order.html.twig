@@ -1,0 +1,86 @@
+{% extends '@!EasyAdmin/layout.html.twig' %}
+{% block main %}
+    {% set order = entity.instance %}
+    <h3 class="mb-4">
+        Commande n°
+        {{ order.id }}
+    </h3>
+    <div class="card">
+        <div class="row p-4 mb-4">
+            <div class="col-md-6">
+                <h4>
+                    Informations client :
+                </h4>
+                <p>
+                    {{ order.delivery|raw }}
+                </p>
+                <p>
+                    Email : {{ order.user.email }}
+                </p>
+            </div>
+            <div class="col-md-6">
+                <h4>
+                    Récapitulatif :
+                </h4>
+                <p>
+                    Date de commande :
+                    {{ order.createdAt|date('d/m/Y H:i') }}
+                </p>
+                <p>
+                    Transporteur :
+                    {{ order.carrierName }}
+                </p>
+                <p>
+                    Total TTC :
+                    {{ (order.totalWt)}}
+                </p>
+                <p>
+                    Statut :
+                    {{ include('admin/state.html.twig', {field: { 'value' : order.state }}) }}
+                </p>    
+            </div>
+            <h4 class="my-4"> Contenu de la commande : </h4>
+            <table class="table table-responsive">
+                <thead class="table-primary">
+                    <tr>
+                        <th scop="col">Illustration</th>
+                        <th scop="col">Nom du produit</th>
+                        <th scop="col">Quantité</th>
+                        <th scop="col">Prix Unitaire H.T</th>
+                        <th scop="col">TVA</th>
+                        <th scop="col">Prix Total T.T.C</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in order.orderDetails %}
+                        <tr>
+                            <td>
+                                <img src=/uploads/{{ product.productIllustration }} width="100px"  alt="{{ product.productName }}">
+                            </td>
+                            <td>{{ product.productName }}</td>
+                            <td>{{ product.productQuantity }}</td>
+                            <td>{{ product.productPrice|price }}</td>
+                            <td>{{ product.productTva }}%</td>
+                                {% set coeff = 1 + (product.productTva / 100) %}
+                            <td>{{ ((product.productPrice * coeff) * product.productQuantity)|price }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td>Frais du transporteur : {{ order.carrierName}}</td>
+                        <td>1</td>
+                        <td>{{ order.carrierPrice|price}}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-right fs-5">
+                <strong>Total H.T : </strong>{{ (order.totalWt - order.totalTva)|price }}</br>
+                <strong>Total TVA : </strong>{{ (order.totalTva)|price }}</br>
+                <strong>Total T.T.C de la commande : </strong>{{ (order.totalWt)|price }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

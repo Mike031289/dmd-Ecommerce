@@ -8,7 +8,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -16,6 +15,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 
 class OrderCrudController extends AbstractCrudController
 {
+    
     public static function getEntityFqcn(): string
     {
         return Order::class;
@@ -24,8 +24,13 @@ class OrderCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('Commande')
-            ->setEntityLabelInPlural('Commandes')
+            // ->setEntityLabelInSingular('Commande')
+            ->setEntityLabelInPlural('Liste des commandes')
+            // ->setPageTitle(Crud::PAGE_INDEX, 'Liste des commande')
+            ->setDefaultSort(['id' => 'DESC'])
+            ->overrideTemplates([
+            'crud/detail' => 'admin/order.html.twig',
+        ]);
             // ->setDateFormat('...')
             // ...
         ;
@@ -33,18 +38,22 @@ class OrderCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
+        $show = Action::new('show', 'Afficher')
+            ->linkToCrudAction('detail')
+            ->setIcon('fa fa-eye')
+            ->setCssClass('btn btn-dark')
+        ;
+
         return $actions
+            ->add(Crud::PAGE_INDEX, $show)
             ->remove(Crud::PAGE_INDEX, Action::NEW)
             ->remove(Crud::PAGE_INDEX, Action::EDIT)
             ->remove(Crud::PAGE_INDEX, Action::DELETE)
-            // ->add(Crud::PAGE_INDEX, Action::DETAIL)
-            // ->add(Crud::PAGE_DETAIL, Action::INDEX)  
-            // ...
         ;
     }
 
-     public function configureFields(string $pageName): iterable
-     {
+    public function configureFields(string $pageName): iterable
+    {
         return [
             IdField::new('id'),
             DateField::new('createdAt')->setLabel('Date de la commande'),
@@ -53,7 +62,7 @@ class OrderCrudController extends AbstractCrudController
             TextField::new('carrierName')->setLabel('Transporteur'),
             NumberField::new('totalTva')->setLabel('Total TVA'),
             NumberField::new('totalWt')->setLabel('Prix total TTC')->setNumDecimals(2),
-         ];
+        ];
     }
     
 }
