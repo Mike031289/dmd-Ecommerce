@@ -103,7 +103,7 @@
                                         </li>
                                     </ul>
                                     <!-- Bouton commander -->
-                                    <a href="{{ path('app_payement') }}" class="btn btn-success w-100 d-flex align-items-center justify-content-center gap-1">
+                                    <a href="{{ path('app_payement', {'id_order': order.id}) }}" class="btn btn-success w-100 d-flex align-items-center justify-content-center gap-1">
                                         <i data-feather="check-circle"></i>
                                         Payer
                                     </a>

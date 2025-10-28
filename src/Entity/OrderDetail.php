@@ -85,6 +85,11 @@ class OrderDetail
         return $this;
     }
 
+    public function getProductPriceWt(): ?float
+    {
+        return $this->productPrice * (1 + $this->productTva / 100);
+    }
+
     public function getProductPrice(): ?float
     {
         return $this->productPrice;
