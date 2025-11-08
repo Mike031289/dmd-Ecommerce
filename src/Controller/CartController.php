@@ -12,11 +12,21 @@ use Symfony\Component\Routing\Attribute\Route;
 final class CartController extends AbstractController
 {
 
-   #[Route('/mon-panier', name: 'app_cart')]
-   public function index(Cart $cart, Request $request): Response
+   #[Route('/mon-panier/{motif}', name: 'app_cart', defaults: ['motif' => null])]
+   public function index(Cart $cart, $motif, Request $request): Response
    {
+        if ($motif === 'annulation') {
+            $this->addFlash(
+                'info', 
+                'Le paiement a été annulé. Votre panier est toujours disponible. vous pouvez donc le mettre à jour et le valider à tout moment.'
+            );
+        }
+        
         if (count($cart->getCart()) === 0) {
-            $this->addFlash('warning', 'Votre panier est vide. Veuillez ajouter des articles avant de passer une commande.');
+            $this->addFlash(
+                'warning', 
+                'Votre panier est vide. Veuillez ajouter des articles avant de passer une commande.'
+            );
             return $this->redirect($request->headers->get('referer'));
         }
     
