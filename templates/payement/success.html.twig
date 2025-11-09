@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container my-5 text-center">
+        <img src="/assets/icone/sac-de-courses.png" alt="Commande confirmée" width="150px">
+        <h1 class="my-3">
+            Merci pour votre commande n° {{ order.id }}.<br>
+        </h1>
+        <div class="">
+            Votre commande a été enregistrée avec succès.<br>
+            Un email de confirmation vous a été envoyé à l'adresse {{ order.user.email }}.<br>
+            Merci de votre confiance.
+        </div>
+        <a href="#" class="btn btn-success mt-4">
+            Consulter mes commandes
+        </a>
+    </div>
+{% endblock %}
+            

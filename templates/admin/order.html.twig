@@ -27,6 +27,10 @@
                     {{ order.createdAt|date('d/m/Y H:i') }}
                 </p>
                 <p>
+                    Stripe session Id :
+                    {{ order.StripeSessionId }}
+                </p>
+                <p>
                     Transporteur :
                     {{ order.carrierName }}
                 </p>
