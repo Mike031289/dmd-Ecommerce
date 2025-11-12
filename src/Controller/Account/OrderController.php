@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class OrderController extends AbstractController
 {
+    
     #[Route('/account/commande/{id_order}', name: 'app_account_order')]
     public function index($id_order, OrderRepository $orderRepository): Response
     {

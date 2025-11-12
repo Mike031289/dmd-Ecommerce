@@ -10,7 +10,7 @@
             Un email de confirmation vous a été envoyé à l'adresse {{ order.user.email }}.<br>
             Merci de votre confiance.
         </div>
-        <a href="#" class="btn btn-success mt-4">
+        <a href="{{ path('app_account_order', {'id_order': order.id}) }}" class="btn btn-success mt-4">
             Consulter mes commandes
         </a>
     </div>
