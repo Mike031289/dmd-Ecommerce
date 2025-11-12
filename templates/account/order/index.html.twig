@@ -1,20 +1,134 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello OrderController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>D:/mes_projets/Symfony-project/Ecommerce/dmd-Ecommerce/src/Controller/Account/OrderController.php</code></li>
-        <li>Your template at <code>D:/mes_projets/Symfony-project/Ecommerce/dmd-Ecommerce/templates/account/order/index.html.twig</code></li>
-    </ul>
-</div>
+    <div class="container my-5">
+        <h1>
+            Espace membre
+        </h1>
+        <div class="row g-0 my-5">
+            {% include 'account/_menu.html.twig' %}
+            <div class="col-md-8">
+                <div class="card-body text-dark  m-3">
+                    <h3 class="card-title mb-3">
+                        Ma commande N°
+                        {{ order.id }}
+                    </h3>
+                    <p>
+                        Passée le :
+                        {{ order.createdAt|date('d/m/Y H:i') }}
+                    </p>
+                    <p>
+                        Statut :
+                        {{ include('admin/state.html.twig', {field: { 'value' : order.state }}
+                        ) }}
+                    </p>
+                </div>
+                <div class="card m-3">
+                    <div class="row p-4 mb-4">
+                        <div class="col-md-6">
+                            <h4>
+                                Adresse de livraison :
+                            </h4>
+                            <p>
+                                {{ order.delivery|raw }}
+                            </p>
+                            <p>
+                                Email :
+                                {{ order.user.email }}
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>
+                                Transporteur :
+                            </h4>
+                            <p>
+                                {{ order.carrierName }}
+                            </p>
+                        </div>
+                        <h4 class="my-4">
+                            Contenu de la commande :
+                        </h4>
+                        <table class="table table-responsive">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th scop="col">
+                                        Illustration
+                                    </th>
+                                    <th scop="col">
+                                        Nom du produit
+                                    </th>
+                                    <th scop="col">
+                                        Quantité
+                                    </th>
+                                    <th scop="col">
+                                        Prix Unitaire H.T
+                                    </th>
+                                    <th scop="col">
+                                        TVA
+                                    </th>
+                                    <th scop="col">
+                                        Prix Total T.T.C
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in order.orderDetails %}
+                                    <tr>
+                                        <td>
+                                            <img src=/uploads/{{ product.productIllustration }} width="100px" alt="{{ product.productName }}"></td>
+                                            <td>
+                                                {{ product.productName }}
+                                            </td>
+                                            <td>
+                                                {{ product.productQuantity }}
+                                            </td>
+                                            <td>
+                                                {{ product.productPrice|price }}
+                                            </td>
+                                            <td>
+                                                {{ product.productTva }}
+                                                %
+                                            </td>
+                                            {% set coeff = 1 + (product.productTva / 100) %}
+                                            <td>
+                                                {{ ((product.productPrice * coeff) * product.productQuantity)|price }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            Frais du transporteur :
+                                            {{ order.carrierName }}
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            {{ order.carrierPrice|price }}
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-right fs-5">
+                                <strong>
+                                    Total H.T :
+                                </strong>
+                                {{ (order.totalWt - order.totalTva)|price }}
+                            </br>
+                            <strong>
+                                Total TVA :
+                            </strong>
+                            {{ (order.totalTva)|price }}
+                        </br>
+                        <strong>
+                            Total T.T.C de la commande :
+                        </strong>
+                        {{ (order.totalWt)|price }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
