@@ -1,4 +1,5 @@
 <?php 
+
 namespace App\Class;
 
 use Mailjet\Client;
@@ -46,9 +47,12 @@ Class Mail
                             'Name' => $toName
                         ]
                     ],
+                    'TemplateID' => 7503238,
+                    'TemplateLanguage' => true,
                     'Subject' => $subject,
-                    'TextPart' => "Bienvenue sur DMD Ecommerce",
-                    'HTMLPart' => $htmlContent
+                    'Variables' => [
+                        'content' => $htmlContent
+                    ],
                 ]
                 ], 
         ];
