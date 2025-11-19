@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Class\Mail;
 
 class RegisterController extends AbstractController
 {
@@ -19,23 +20,34 @@ class RegisterController extends AbstractController
       //Tu enregistre les datas en BDD
       //Tu envoies un message de confirmation du compte bien créé
 
-      $user = new User();
-      $form = $this->createForm(RegisterUserType::class, $user);
-      $form->handleRequest($request);
-      if ($form->isSubmitted() && $form->isValid()) {
-         // dd($form->getData());
-         $em->persist($user);
-         $em->flush();
+        $user = new User();
+        $form = $this->createForm(RegisterUserType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // dd($form->getData());
+            $em->persist($user);
+            $em->flush();
 
-         $this->addFlash(
+            $this->addFlash(
             'success',
             'Votre compte est correctement créé, veuillez vous connecter'
-         );
+            );
 
-         return $this->redirectToRoute('app_login');
-      }
-      return $this->render('register/index.html.twig', [
-         'registerForm' => $form->createView()
-      ]);
-   }
+            //  Send mail confirmation to user
+            
+            $mail = new Mail();
+            $vars = [
+                'firstname' => $user->getFirstname(),
+                'lastname' => $user->getLastname()
+            ];
+            
+            $mail->send($user->getEmail(), $user->getFirstname().' '. $user->getLastname(), "Mon premier test d'envoie de mail",           "welcome.html", $vars);
+            
+            return $this->redirectToRoute('app_login');
+        }
+        
+        return $this->render('register/index.html.twig', [
+            'registerForm' => $form->createView()
+        ]);
+    }
 }

@@ -19,10 +19,21 @@ Class Mail
      * @param string $toName
      * @param string $subject
      * @param string $htmlContent
+     * @param array|null $vars
      * @return bool
      */
-    public function send(string $toEmail, string $toName, string $subject, string $htmlContent): bool
+    public function send(string $toEmail, string $toName, string $subject, string $template, $vars = null): bool
     {
+        // Retriving of mail template content
+        $htmlContent = file_get_contents(dirname(__DIR__ ).'/Mail/'.$template);
+
+        // Retriving variables in the template
+        if ($vars !== null) {
+            foreach ($vars as $key => $value) {
+                $htmlContent = str_replace('{'.$key.'}', $value, $htmlContent);
+            }
+        }
+        
         $to = trim($toEmail);
         $headers = "MIME-Version: 1.0\r\n";
         $headers .= "Content-type: text/html; charset=UTF-8\r\n";
