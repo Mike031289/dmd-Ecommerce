@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 
 class ProductCrudController extends AbstractCrudController
 {
@@ -37,11 +38,13 @@ class ProductCrudController extends AbstractCrudController
         if ($pageName == 'edit') {
             $require = false;
         }
-
         return [
             TextField::new('name')
                 ->setLabel('Nom')
                 ->setHelp('Nom de votre produit'),
+            BooleanField::new('isHomepage')
+                ->setLabel('Produit à la une ?')
+                ->setHelp('Mettre en avant ce produit sur la page d\'accueil'),
             SlugField::new('slug')
                 ->setLabel('URL')
                 ->setTargetFieldName('name')
