@@ -50,28 +50,28 @@
         <div class="container marketing">
             <!-- Three columns of text below the carousel -->
             <div class="row">
-            {% for product in productInHomepage %}
-                <div class="col-lg-4">
-                    <img src="/uploads/products/{{ product.illustration }}" class="bd-placeholder-img" width="80%" height="50%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveaspectratio="xMidYMid slice" focusable="false">
-                        <title>
-                            Placeholder
-                        </title>
-                        <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
-                    </svg>
-                    <h2 class="fw-normal">
-                        {{ product.name }}
-                    </h2>
-                    <p>
-                        {{ product.description|raw }}
-                    </p>
-                    <p>
-                        <a class="btn btn-secondary" href="{{ path('app_product', {'slug': product.slug }) }}">
-                            Découvrir &raquo;
-                        </a>
-                    </p>
-                </div>
+                {% for product in productInHomepage %}
+                    <div class="col-lg-4">
+                        <img src="/uploads/products/{{ product.illustration }}" class="bd-placeholder-img" width="80%" height="50%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveaspectratio="xMidYMid slice" focusable="false">
+                            <title>
+                                Placeholder
+                            </title>
+                            <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
+                        </svg>
+                        <h2 class="fw-normal">
+                            {{ product.name }}
+                        </h2>
+                        <p>
+                            {{ product.description|raw }}
+                        </p>
+                        <p>
+                            <a class="btn btn-secondary" href="{{ path('app_product', {'slug': product.slug }) }}">
+                                Découvrir &raquo;
+                            </a>
+                        </p>
+                    </div>
                 <!-- /.col-lg-4 -->
-            {% endfor %}
+                {% endfor %}
             <!-- /.col-lg-4 -->
             </div>
             <!-- /.row -->
