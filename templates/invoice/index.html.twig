@@ -13,11 +13,21 @@
             .text-center {
                 text-align: center;
             }
+            .text-right {
+                text-align: right;
+            }
+            .text-left {
+                text-align: left;
+            }
             table {
                 width: 100%;
-                border-bottom: 1px solid gray;
+                border-top: 1px solid gray;
                 margin-bottom: 20px;
                 padding-bottom: 15px;
+            }
+            th, td {
+                padding: 5px;
+                border-bottom: 1px solid lightgray;
             }
         </style>
     </head>
@@ -28,12 +38,15 @@
                 Facture N°
                 {{ order.id }}
             </h1>
+        </div>
+        <div class="invoice-details mb-4">
             <table>
                 <tr>
                     <td>
                         <strong>
-                            DMD-Shop
+                            Raison Sociale:
                         </strong>
+                        DMD-Shop
                         <br>
                         123 Rue de l'Exemple
                         <br>
@@ -61,10 +74,104 @@
                             Client:
                         </strong>
                         {{ order.delivery|raw }}
+                        <br>
+                        <strong>
+                            Email :
+                        </strong>
+                        {{ order.user.email }}
+                         <br>
+                        <strong>
+                            Date de la commande:
+                        </strong>
+                        {{ order.createdAt|date("d/m/Y") }}
                     </td>
                 </tr>
             </table>
         </div>
-        <h5 class="lead">Commande</h5>
+        <h3>
+            Votre Commande
+        </h3>
+        <div>
+            <strong>
+                Transporteur : 
+            </strong>
+            {{ order.carrierName }}
+        </div>
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th scop="col" class="text-left">
+                        Produit
+                    </th>
+                    <th scop="col" class="text-left">
+                        Quantité
+                    </th>
+                    <th scop="col" class="text-left">
+                        Prix Unitaire H.T
+                    </th>
+                    <th scop="col" class="text-left">
+                        TVA
+                    </th>
+                    <th scop="col" class="text-left">
+                        Prix Total T.T.C
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in order.orderDetails %}
+                    <tr>
+                        <td>
+                            {{ product.productName }}
+                        </td>
+                        <td>
+                            {{ product.productQuantity }}
+                        </td>
+                        <td>
+                            {{ product.productPrice|price }}
+                        </td>
+                        <td>
+                            {{ product.productTva }}
+                            %
+                        </td>
+                        {% set coeff = 1 + (product.productTva / 100) %}
+                        <td>
+                            {{ ((product.productPrice * coeff) * product.productQuantity)|price }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td>
+                        Frais du transporteur :
+                        {{ order.carrierName }}
+                    </td>
+                    <td>
+                        1
+                    </td>
+                    <td>
+                        {{ order.carrierPrice|price }}
+                    </td>
+                    <td> - </td>
+                        <td>  
+                            {{ order.carrierPrice|price }}
+                        </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-right fs-5">
+            <strong>
+                Total H.T :
+            </strong>
+            {{ (order.totalWt - order.totalTva)|price }}
+        </br>
+        <strong>
+            Total TVA :
+        </strong>
+        {{ (order.totalTva)|price }}
+        </br>
+        <strong>
+            Total T.T.C de la commande :
+        </strong>
+        {{ (order.totalWt)|price }}
     </body>
 </html>
