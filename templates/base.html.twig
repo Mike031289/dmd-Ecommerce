@@ -45,6 +45,9 @@
                                     <i data-feather="user"></i>
                                     {{ app.user.firstname }}
                                 </a>
+                                <a href="#" class="btn btn-outline-danger align-items-center justify-content-center p-2 rounded-3">
+                                    <i data-feather="heart" class=""></i>
+                                </a>
                             {% else %}
                                 <a href="{{ path('app_login') }}">
                                     <i data-feather="user"></i>
@@ -52,7 +55,9 @@
                             {% endif %}
                             <a href="{{ path('app_cart') }}">
                                 <i data-feather="shopping-cart"></i>
-                                <span class="badge text-bg-light">{{ fullCartQuantity }}</span>
+                                <span class="badge text-bg-light">
+                                    {{ fullCartQuantity }}
+                                </span>
                             </a>
                         </div>
                     </div>
