@@ -35,7 +35,7 @@ final class CartController extends AbstractController
             'totalWt' => $cart->getTotalWt(),
         ]);
    }
-
+ 
    #[Route('/cart/add/{id}', name: 'app_cart_add')]
    public function addProduct($id, Cart $cart, ProductRepository $productRepository, Request $request): Response
    {

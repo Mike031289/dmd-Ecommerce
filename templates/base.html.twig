@@ -45,8 +45,11 @@
                                     <i data-feather="user"></i>
                                     {{ app.user.firstname }}
                                 </a>
-                                <a href="{{ path('app_account_wishlist') }}" class="btn btn-outline-danger align-items-center justify-content-center p-2 rounded-3">
+                                <a href="{{ path('app_account_wishlist')}}" class="btn btn-outline-danger align-items-center justify-content-center py-2 rounded-3">
                                     <i data-feather="heart" class=""></i>
+                                    <span class="badge text-bg-light">
+                                        {{ app.user.wishlists|length }}
+                                    </span>
                                 </a>
                             {% else %}
                                 <a href="{{ path('app_login') }}">
