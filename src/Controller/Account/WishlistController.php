@@ -25,18 +25,20 @@ final class WishlistController extends AbstractController
         $product = $productRepository->findOneById($id);
 
         //add the product to the wishlist if not already in it
-        if ($this->getUser()->getWishlists()->contains($product)) {
-                
+        /** @var User|null $user */
+        $user = $this->getUser();
+        if ($product && $user->getWishlists()->contains($product)) {
+
             $this->addFlash(
-                    'info',
-                    "Cet article est déjà dans votre liste de souhaits, veuillez consulter votre liste de souhaits en cliquant sur le coeur en haut à droite de la page."
-                );
-            
+                'info',
+                "Cet article est déjà dans votre liste de souhaits, veuillez consulter votre liste de souhaits en cliquant sur le coeur en haut à droite de la page."
+            );
+
             return $this->redirect($request->headers->get('referer'));
-            
+
         } else if ($product) {
-            
-            $this->getUser()->addWishlist($product);
+
+            $user->addWishlist($product);
 
             //flush the changes to the database
             $em->flush();
@@ -45,42 +47,54 @@ final class WishlistController extends AbstractController
                 'success',
                 "Article correctement ajouté à votre liste de souhaits"
             );
-
-            return $this->redirectToRoute(('app_account_wishlist'));
             
-        } else if (!$product) {
+            return $this->redirect($request->headers->get('referer'));
+            
+        }
+        
+        if (!$product) {
+            
             $this->addFlash(
-                'error',
+                'danger',
                 "Le produit que vous essayez d'ajouter n'existe pas"
             );
         
-            return $this->redirect($request->headers->get('referer'));
-        
+            // Fallback return to satisfy static analyzers: redirect to wishlist if no branch returned
+            return $this->redirectToRoute('app_account_wishlist');
         }
-
-        // Fallback return to satisfy static analyzers: redirect to wishlist if no branch returned
+        
         return $this->redirectToRoute('app_account_wishlist');
+
     }
 
     #[Route('/compte/liste-de-souhaits/remove/{id}', name: 'app_account_wishlist_remove')]
-    public function remove($id, ProductRepository $productRepository, EntityManagerInterface $em): Response
+    public function remove($id, ProductRepository $productRepository, Request $request, EntityManagerInterface $em): Response
     {
         //find the product by id
         $product = $productRepository->findOneById($id);
 
         //remove the product from the wishlist
+        /** @var User|null $user */
+        $user = $this->getUser();
         if ($product) {
-            $this->getUser()->removeWishlist($product);
+            
+            $user->removeWishlist($product);
 
             //flush the changes to the database
             $em->flush();
 
             $this->addFlash(
-                'success',
-                "Article correctement supprimé de votre liste de souhaits"
+                'danger',
+                "Article supprimé de votre liste de souhaits"
+            );
+        } else {
+            $this->addFlash(
+                'danger',
+                "Le produit que vous essayez de supprimer n'existe pas"
             );
         }
 
-        return $this->redirectToRoute(('app_account_wishlist'));
+        return $this->redirect($request->headers->get('referer'));
+
     }
 }

@@ -42,9 +42,15 @@
                             </a>
                             <!-- Bouton Ajouter à la liste de souhaits -->
                             {% if app.user %}
-                                <a href="{{ path('app_account_wishlist_add', {id : product.id}) }}" class="btn btn-outline-danger ms-2 d-flex align-items-center justify-content-center py-2 rounded-3">
-                                    <i data-feather="heart" class=""></i>
-                                </a>
+                                {% if product in app.user.wishlists %}
+                                    <a href="{{ path('app_account_wishlist_remove', {id : product.id}) }}" class="wishlist-icone btn btn-danger ms-2 d-flex align-items-center justify-content-center py-2 rounded-3">
+                                        <i data-feather="heart" class=""></i>
+                                    </a>
+                                {% else %}
+                                    <a href="{{ path('app_account_wishlist_add', {id : product.id}) }}" class="wishlist-icone btn btn-outline-danger ms-2 d-flex align-items-center justify-content-center py-2 rounded-3">
+                                        <i data-feather="heart" class=""></i>
+                                    </a>
+                                {% endif %}
                             {% else %}
                                 <a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" class="btn btn-outline-danger ms-2 d-flex align-items-center justify-content-center py-2 rounded-3">
                                     <i data-feather="heart" class=""></i>
