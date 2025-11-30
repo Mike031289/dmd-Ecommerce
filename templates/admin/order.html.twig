@@ -1,15 +1,17 @@
 {% extends '@!EasyAdmin/layout.html.twig' %}
 {% block main %}
     {% set order = entity.instance %}
-    <div class="mb-3">
-        <a target="_blank" href="{{ path('app_invoice_admin', {id_order : order.id}) }}" class="btn btn-sm btn-primary mr-3">
-            <!-- Mets ici l’icône que tu veux -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 6px;">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0-4-4m4 4 4-4M20 20H4" />
-            </svg>
-            Générer la facture
-        </a>
-    </div>
+    {# display this invoice download link button only if order is paid and in progress or completed  #}
+    {% if order.state >= 1 and order.state <= 4 %}
+        <div class="mb-3">
+            <a target="_blank" href="{{ path('app_invoice_admin', {id_order : order.id}) }}" class="btn btn-sm btn-primary mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 6px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0-4-4m4 4 4-4M20 20H4" />
+                </svg>
+                Générer la facture
+            </a>
+        </div>
+    {% endif %}
     <h3 class="mb-4">
         Commande n°
         {{ order.id }}
@@ -84,7 +86,7 @@
                     {% for product in order.orderDetails %}
                         <tr>
                             <td>
-                                <img src=/uploads/{{ product.productIllustration }} width="100px" alt="{{ product.productName }}"></td>
+                                <img src=/uploads/products/{{ product.productIllustration }} width="100px" alt="{{ product.productName }}"></td>
                                 <td>
                                     {{ product.productName }}
                                 </td>
