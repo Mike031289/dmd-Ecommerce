@@ -8,14 +8,18 @@
     </span>
 {% elseif field.value == 2 %}
     <span class="badge text-bg-warning">
-        Préparation en cours
+        En cours de préparation
     </span>
 {% elseif field.value == 3 %}
     <span class="badge text-bg-info">
-        Livraison en cours
+       Commande prise en charge livraison en cours
     </span>
 {% elseif field.value == 4 %}
     <span class="badge text-bg-info">
         Livrée
+    </span>
+{% elseif field.value == 5 %}
+    <span class="badge text-bg-danger">
+       Annulée
     </span>
 {% endif %}
