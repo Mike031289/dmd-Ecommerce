@@ -7,12 +7,11 @@
         <div class="row g-0 my-5">
             {% include 'account/_menu.html.twig' %}
             <div class="col-md-8">
-                <small class="container-fluid">
+                <div class="container-fluid m-3">
                     <a href="{{ path('app_account') }}" class="btn btn-sm btn-secondary">
                         &larr; Retour aux commandes
                     </a>
                     <a target="_blank" href="{{ path('app_invoice_customer', {id_order : order.id}) }}" class="btn btn-sm btn-secondary">
-
                         <!-- Mets ici l’icône que tu veux -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 6px;">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0-4-4m4 4 4-4M20 20H4" />
@@ -20,7 +19,7 @@
                         Ma facture
                     </a>
 
-                </small>
+                </div>
                 <div class="card-body text-dark  m-3">
                     <h3 class="card-title mb-3">
                         Ma commande N°
@@ -88,7 +87,7 @@
                                 {% for product in order.orderDetails %}
                                     <tr>
                                         <td>
-                                            <img src=/uploads/{{ product.productIllustration }} width="100px" alt="{{ product.productName }}"></td>
+                                            <img src="/uploads/products/{{ product.productIllustration }}" width="100px" alt="{{ product.productName }}"></td>
                                             <td>
                                                 {{ product.productName }}
                                             </td>
