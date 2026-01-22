@@ -1,21 +1,21 @@
 {% if field.value == 0 %}
-    <span class="badge text-bg-secondary">
+    <span class="badge text-bg-secondary p-2 w-100">
         En attente de paiement
     </span>
 {% elseif field.value == 1 %}
-    <span class="badge text-bg-success p-2">
+    <span class="badge text-bg-success p-2 w-100">
         Payée
     </span>
 {% elseif field.value == 2 %}
-    <span class="badge text-bg-warning p-2">
+    <span class="badge text-bg-warning p-2 w-100">
         En cours de préparation
     </span>
 {% elseif field.value == 3 %}
-    <span class="badge text-bg-info p-2">
+    <span class="badge text-bg-info p-2 w-100">
        Expédiée
     </span>
 {% elseif field.value == 4 %}
-    <span class="badge text-bg-danger p-2">
+    <span class="badge text-bg-danger p-2 w-100">
        Annulée
     </span>
 {% endif %}

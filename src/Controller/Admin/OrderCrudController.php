@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Order;
+use App\Class\Mail;
 
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
@@ -59,21 +60,23 @@ class OrderCrudController extends AbstractCrudController
     */
     public function changeOrderState(Order $order, int $state): void
     {
+        // update the order state
         $order->setState($state);
         $this->em->flush();
         
         //flash message to notify admin that order state has been updated
         $this->addFlash('success', sprintf("Le statut de la commande %d a été mis à jour.", $order->getId()));
 
-        // Here you can add additional logic, such as sending notification emails
-        // to the customer about the state change.
-        if ($state === 2) {
-            // Send email to customer about order being prepared
-        } elseif ($state === 3) {
-            // Send email to customer about order being shipped
-        } elseif ($state === 4) {
-            // Send email to customer about order being cancelled
-        }
+        //  Send notification emails to the customer about his order state change
+            
+            $mail = new Mail();
+            $vars = [
+                'firstname' => $order->getUser()->getFirstname(),
+                'order_id' => $order->getId(),
+                
+            ];
+
+            $mail->send($order->getUser()->getEmail(), $order->getUser()->getFirstname(), "Modification du statut de votre commande", "order_state_" . $state . ".html", $vars);
         
     }
 
