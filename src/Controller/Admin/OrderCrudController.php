@@ -61,6 +61,20 @@ class OrderCrudController extends AbstractCrudController
     {
         $order->setState($state);
         $this->em->flush();
+        
+        //flash message to notify admin that order state has been updated
+        $this->addFlash('success', sprintf("Le statut de la commande %d a été mis à jour.", $order->getId()));
+
+        // Here you can add additional logic, such as sending notification emails
+        // to the customer about the state change.
+        if ($state === 2) {
+            // Send email to customer about order being prepared
+        } elseif ($state === 3) {
+            // Send email to customer about order being shipped
+        } elseif ($state === 4) {
+            // Send email to customer about order being cancelled
+        }
+        
     }
 
     /**

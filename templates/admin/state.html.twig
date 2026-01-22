@@ -3,19 +3,19 @@
         En attente de paiement
     </span>
 {% elseif field.value == 1 %}
-    <span class="badge text-bg-success">
+    <span class="badge text-bg-success p-2">
         Payée
     </span>
 {% elseif field.value == 2 %}
-    <span class="badge text-bg-warning">
+    <span class="badge text-bg-warning p-2">
         En cours de préparation
     </span>
 {% elseif field.value == 3 %}
-    <span class="badge text-bg-info">
+    <span class="badge text-bg-info p-2">
        Expédiée
     </span>
 {% elseif field.value == 4 %}
-    <span class="badge text-bg-danger">
+    <span class="badge text-bg-danger p-2">
        Annulée
     </span>
 {% endif %}

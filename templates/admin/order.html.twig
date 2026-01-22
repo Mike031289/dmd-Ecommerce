@@ -12,7 +12,7 @@
             <a href="{{ current_url }}&state=3" class="btn btn-warning btn-sm my-2">
                 Commande expédiée
             </a>
-            <a href="{{ current_url }}&state=4" class="btn btn-danger btn-sm my-2">
+            <a href="{{ current_url }}&state=4" class="btn btn-danger btn-sm my-2 text-white">
                 Commande annulée
             </a>
             <hr>
@@ -36,6 +36,12 @@
             Commande n°
             {{ order.id }}
         </h3>
+        {# class="btn btn-danger btn-sm my-2" #}
+        <p class="fs-5">
+            Statut :
+            {{ include('admin/state.html.twig', {field: { 'value' : order.state }}
+            ) }}
+        </p>
         <div class="card">
             <div class="row p-4 mb-4">
                 <div class="col-md-6">
@@ -69,11 +75,6 @@
                     <p>
                         Total TTC :
                         {{ (order.totalWt) }}
-                    </p>
-                    <p>
-                        Statut :
-                        {{ include('admin/state.html.twig', {field: { 'value' : order.state }}
-                        ) }}
                     </p>
                 </div>
                 <h4 class="my-4">
