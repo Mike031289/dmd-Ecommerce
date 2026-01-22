@@ -3,7 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Order;
+
+use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -12,9 +16,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class OrderCrudController extends AbstractCrudController
 {
+    public function __construct(
+        private EntityManagerInterface $em
+    ) {}
     
     public static function getEntityFqcn(): string
     {
@@ -24,24 +33,17 @@ class OrderCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            // ->setEntityLabelInSingular('Commande')
             ->setEntityLabelInPlural('Liste des commandes')
-            // ->setPageTitle(Crud::PAGE_INDEX, 'Liste des commande')
             ->setDefaultSort(['id' => 'DESC'])
-            ->overrideTemplates([
-            'crud/detail' => 'admin/order.html.twig',
-        ]);
-            // ->setDateFormat('...')
-            // ...
         ;
     }
 
     public function configureActions(Actions $actions): Actions
     {
-        $show = Action::new('show', 'Afficher')
-            ->linkToCrudAction('detail')
+        $show = Action::new( 'Afficher')
+            ->linkToCrudAction('show')
             ->setIcon('fa fa-eye')
-            ->setCssClass('btn btn-dark')
+            ->setCssClass('btn btn-light')
         ;
 
         return $actions
@@ -52,6 +54,51 @@ class OrderCrudController extends AbstractCrudController
         ;
     }
 
+    /**
+     * Change the state of an order
+    */
+    public function changeOrderState(Order $order, int $state): void
+    {
+        $order->setState($state);
+        $this->em->flush();
+    }
+
+    /**
+     * Custom show Action to display order
+    */
+    public function show(AdminContext $context, AdminUrlGenerator $adminUrlGenerator, Request $request): Response
+    {
+        // $order = $context->getEntity()->getInstance();
+        $orderId = null;
+        $orderId = $context->getRequest()->query->get('entityId');
+        $order = $this->em->getRepository(Order::class)->find($orderId);
+
+        if (!$order) {
+            throw $this->createNotFoundException();
+        }
+        
+        $currentUrl = $adminUrlGenerator  
+            ->setController(crudControllerFqcn: self::class)
+            ->setAction('show')
+            ->setEntityId($order->getId())
+            ->generateUrl();
+            
+        // here we make the treatement of the order state.
+        if ($request->query->get('state')) {
+            $this->changeOrderState($order, (int)$request->query->get('state'));
+            $this->em->flush();
+        }
+        
+        return $this->render('admin/order.html.twig', [
+            'order' => $order,
+            'current_url' => $currentUrl,
+        ]);
+ 
+    }
+
+    /**
+     * Fields to be displayed in the CRUD
+    */
     public function configureFields(string $pageName): iterable
     {
         return [
