@@ -1,26 +1,42 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
     <div class="container my-5">
-        <h1 class="my-5">Connexion</h1>
+        <div class="form-bloc">
+            <div class="form-logo text-center">
+                <img src="{{ asset('assets/logo/dmd_logo.png') }}" alt="dmd logo" class="img-fluid"></div>
+                <h1 class="my-5">
+                    Connexion
+                </h1>
                 {% if error %}
-            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
-
-        <form action="{{ path('app_login') }}" method="post">
-            <label for="username">Votre Email:</label>
-            <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}">
-
-            <label for="password">Votre Password:</label>
-            <input class="form-control" type="password" id="password" name="_password">
-
-            {# If you want to control the URL the user is redirected to on success#}
-            <input type="hidden" name="_target_path" value="{{ path('app_account') }}"> 
-
-            <button class="btn btn-success mt-3" type="submit">Me connecter</button>
-        </form>
-
-        <br/>
-        Vous n'avez pas de compte ? <a href="{{ path('app_register') }}">Inscrivez-vous</a>
-    </div>
-{% endblock %}
+                    <div>
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
+                <form action="{{ path('app_login') }}" method="post">
+                    <label for="username">
+                        Votre Email:
+                    </label>
+                    <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}">
+                        <label for="password">
+                            Votre Password:
+                        </label>
+                        <input class="form-control" type="password" id="password" name="_password">
+                            {# If you want to control the URL the user is redirected to on success#}
+                            <input type="hidden" name="_target_path" value="{{ path('app_account') }}">
+                                <button class="btn btn-success mt-3" type="submit">
+                                    Me connecter
+                                </button>
+                            </form>
+                            <br/>
+                            Vous n'avez pas de compte ?
+                            <a href="{{ path('app_register') }}">
+                                Inscrivez-vous
+                            </a>
+                            <br/>
+                            <a href="{{ path('app_forgot_password') }}">
+                                Mot de passe oublié
+                            </a>
+                        </div>
+                    </div>
+                {% endblock %}
+                

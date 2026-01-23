@@ -1,10 +1,18 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
     <div class="container my-5">
-        <h1 class="my-5">Inscription</h1>
-        {{ form(registerForm) }}
-        <br/>
-        <a href="{{ path('app_login') }}">Me Connecter</a>
-    </div>
-{% endblock %}
+        <div class="form-bloc">
+            <div class="form-logo text-center">
+                <img src="{{ asset('assets/logo/dmd_logo.png') }}" alt="dmd logo" class="img-fluid"></div>
+                <h1 class="my-5">
+                    Inscription
+                </h1>
+                {{ form(registerForm) }}
+                    <br/>
+                    <a href="{{ path('app_login') }}">
+                        Me Connecter
+                    </a>
+                </div>
+            </div>
+        {% endblock %}
+        

@@ -2,14 +2,21 @@
 
 {% block body %}
     <div class="container my-5">
-        <h1 class="my-5">
-            Mot de passe oublié
-        </h1>
-        {{ form(forgotPassWordForm) }}
-            <br/>
-            <p>Avez-vous déjà un compte ? </p>
-            <a href="{{ path('app_login') }}">
-                Me Connecter
-            </a>
-        </div>
-    {% endblock %}
+        <div class="form-bloc">
+            <div class="form-logo text-center">
+                <img src="{{ asset('assets/logo/dmd_logo.png') }}" alt="dmd logo" class="img-fluid"></div>
+                <h1 class="my-5">
+                    Mot de passe oublié
+                </h1>
+                {{ form(forgotPasswordForm) }}
+                    <br/>
+                    <p>
+                        Vous avez déjà un compte ?
+                        <a href="{{ path('app_login') }}">
+                            Connectez-vous
+                        </a>
+                    </p>
+                </div>
+            </div>
+        {% endblock %}
+        
