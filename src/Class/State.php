@@ -5,6 +5,11 @@ class State
 {
     /**
      * @var array<int, array<string, string>>
+     * State constants for order statuses
+     * 2 => In preparation
+     * 3 => Shipped
+     * 4 => Cancelled
+     * Each state has a label, email subject, and email template associated with it.
      */
     public const STATE = [
         2 => [
