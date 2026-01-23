@@ -6,13 +6,13 @@
             <h2 class="mb-4">
                 Agir sur la commande
             </h2>
-            <a href="{{ current_url }}&state=2" class="btn btn-info btn-sm my-2">
+            <a href="{{ current_url }}&state=2" class="{% if order.state == 2 %} d-none    {% endif %} btn btn-info btn-sm my-2">
                 Commande en cours de préparation
             </a>
-            <a href="{{ current_url }}&state=3" class="btn btn-warning btn-sm my-2">
+            <a href="{{ current_url }}&state=3" class="{% if order.state == 3 %} d-none  {% endif %} btn btn-warning btn-sm my-2">
                 Commande expédiée
             </a>
-            <a href="{{ current_url }}&state=4" class="btn btn-danger btn-sm my-2 text-white">
+            <a href="{{ current_url }}&state=4" class="{% if order.state == 4 %} d-none   {% endif %} btn btn-danger btn-sm my-2 text-white">
                 Commande annulée
             </a>
             <hr>
