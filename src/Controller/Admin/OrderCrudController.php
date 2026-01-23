@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Order;
 use App\Class\Mail;
+use App\Class\State;
 
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
@@ -76,7 +77,7 @@ class OrderCrudController extends AbstractCrudController
                 
             ];
 
-            $mail->send($order->getUser()->getEmail(), $order->getUser()->getFirstname(), "Modification du statut de votre commande", "order_state_" . $state . ".html", $vars);
+        $mail->send($order->getUser()->getEmail(), $order->getUser()->getFirstname(), State::STATE[$state]["email_subject"], State::STATE[$state]["email_template"], $vars);
         
     }
 
