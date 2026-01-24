@@ -105,6 +105,9 @@ final class ForgotPasswordController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // clear the token and expiration date after successful password reset
+            $user->setToken(null);
+            $user->setTokenExpireAt(null);
             $this->em->flush();
             $this->addFlash('success', 'Votre mot de passe a été mis à jour avec succès. Vous pouvez maintenant vous connecter.');
             return $this->redirectToRoute('app_login');
