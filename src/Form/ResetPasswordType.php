@@ -15,7 +15,6 @@ class ResetPasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('field_name')
             ->add('plainPassword', RepeatedType::class, [
                 'type'           => PasswordType::class,
                 'constraints'    => [
@@ -26,16 +25,16 @@ class ResetPasswordType extends AbstractType
                 ],
                 'first_options'  => [
                     'label'              => 'Votre nouveau mot de passe',
-                    'attr'               => [
-                        'placeholder' => "Choisissez votre nouveau mot de passe"
-                    ],
+                    // 'attr'               => [
+                    //     'placeholder' => "Choisissez votre nouveau mot de passe"
+                    // ],
                     'hash_property_path' => 'password'
                 ],
                 'second_options' => [
                     'label' => 'Confirmez votre nouveau mot de passe',
-                    'attr'  => [
-                        'placeholder' => "Confirmez votre nouveau mot de passe"
-                    ],
+                    // 'attr'  => [
+                    //     'placeholder' => "Confirmez votre nouveau mot de passe"
+                    // ],
                 ],
                 'mapped'         => false,
             ])

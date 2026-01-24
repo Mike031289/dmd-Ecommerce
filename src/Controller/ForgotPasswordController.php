@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Class\Mail;
 use App\Form\ForgotPasswordType;
+use App\Form\ResetPasswordType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,11 +31,12 @@ final class ForgotPasswordController extends AbstractController
 
             // Here, we just check if user exist to avoid email enumeration attacks before proceeding with password reset process.
             if ($user) {
-
+                // 2- generate token and save it to the database with user info and expiration date
+                $token = bin2hex(random_bytes(32));
                 //  Send email with reset liknk to user containing the token 
                 $mail = new Mail();
                 $vars = [
-                    'link' => 'link'
+                    'link' => $this->generateUrl('app_password_reset', ['token' => $token])
                 ];
 
                 $mail->send($user->getEmail(), $user->getFirstname() . ' ' . $user->getLastname(), "Réinitialisation de mot de passe", "forgotpassword.html", $vars);
@@ -42,9 +44,6 @@ final class ForgotPasswordController extends AbstractController
             }
 
         }
-
-        // 2- generate token and save it to the database with user info and expiration date
-
 
         // 3- send email with link to reset password (link contains the token) if email exists
 
@@ -76,8 +75,17 @@ final class ForgotPasswordController extends AbstractController
      * 9- On form submission, update the user's password and invalidate the token
      */
     #[Route('/mot-de-passe/reset/{token}', name: 'app_password_reset')]
-    public function update($token, UserRepository $userRepository): Response
+    public function update(Request $request, UserRepository $userRepository): Response
     {
+        // 1- form to enter new password
+        $form = $this->createForm(ResetPasswordType::class);
+        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            dd($form->getData());
+            $email = $form->get('email')->getData();
+        }
         // 4- form to enter new password (accessed via link with token)
 
 
@@ -97,6 +105,8 @@ final class ForgotPasswordController extends AbstractController
         //     return $this->redirectToRoute('app_login');
         // }
         // Placeholder for password reset functionality
-        return $this->render('password/reset.html.twig');
+        return $this->render('password/reset.html.twig', [
+            'resetPasswordForm' => $form->createView(),
+        ]);
     }
 }
