@@ -46,7 +46,7 @@ final class ForgotPasswordController extends AbstractController
                 $user->setToken($token);
                 
                 $date = new DateTime();
-                $date->modify('+2 minutes');
+                $date->modify('+10 minutes');
                 $user->setTokenExpireAt($date);
                 $this->em->flush();
 
@@ -61,11 +61,6 @@ final class ForgotPasswordController extends AbstractController
             }
 
         }
-
-        // Note: Ensure to implement security measures to protect against token misuse and expiration.
-        // This is a simplified outline and should be expanded with proper validation, error handling, and security practices.
-        // For production, consider using Symfony's built-in password reset features or bundles.
-        // For now, just render a placeholder template.
 
         return $this->render('password/index.html.twig', [
             'forgotPasswordForm' => $form->createView(),
