@@ -1,3 +1,37 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+}
+
+a {
+    color: #dc6621;
+}
+
+.bg-dark {
+     background-color: #365228 !important;
+}
+
+.btn-primary {
+    background-color: #f6a677;
+    border-color: #f6a677; 
+}
+
+.btn-primary:hover {
+    background-color: #e98f5c;
+    border-color: #e98f5c; 
+}
+
+.alert-info {
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+    color: #0f5132;
+}
+
+.btn-disable-danger:hover {
+    color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
 .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
@@ -85,11 +119,7 @@
 }
 
 .product-description {
-    text-align:justify;
-}
-
-.text-accent {
-    color: #ff5722;
+    text-align: justify;
 }
 
 .hover-card:hover {
@@ -115,8 +145,7 @@
 }
 
 .text-accent {
-    color: #d3481e;
-    /* color: #ff5722; */
+    color: #ec6868;
 }
 
 .breadcrumb .breadcrumb-item+.breadcrumb-item::before {
@@ -142,21 +171,22 @@
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
-.quantity-btn{
+.quantity-btn {
     text-decoration: none;
     color: #000;
-    font-size:x-large;
+    font-size: x-large;
     margin: auto 5px;
 }
 
-#order_addresses, 
+#order_addresses,
 #order_carrier {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
 }
-#order_addresses .form-check, 
+
+#order_addresses .form-check,
 #order_carrier .form-check {
     flex: 1 1 45%;
     margin: 10px 20px 10px auto;
@@ -165,19 +195,19 @@
     background-color: #f0f0f0;
 }
 
-#order_addresses .form-check:hover, 
+#order_addresses .form-check:hover,
 #order_carrier .form-check:hover {
     background-color: aliceblue;
     cursor: pointer;
 }
 
-#order_addresses .form-check input[type="radio"], 
+#order_addresses .form-check input[type="radio"],
 #order_carrier .form-check input[type="radio"] {
     vertical-align: middle;
     margin: 14px auto auto -15px;
 }
 
-#order_addresses .form-check label, 
+#order_addresses .form-check label,
 #order_carrier .form-check label {
     display: block;
     margin-bottom: 5px;

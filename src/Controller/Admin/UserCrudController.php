@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -30,6 +31,7 @@ class UserCrudController extends AbstractCrudController
         return [
             TextField::new('firstName')->setLabel('Nom'),
             TextField::new('lastName')->setLabel('Prénom'),
+            DateTimeField::new('lastLoginAt')->setLabel('Dernière connexion')  ->onlyOnIndex(),
             ChoiceField::new('roles')
                 ->setLabel('Rôles ( Permissions )')
                 ->setChoices([
