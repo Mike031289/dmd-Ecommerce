@@ -2,6 +2,7 @@
 
 namespace App\EventSubscriber;
 
+use App\Entity\User;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -33,7 +34,7 @@ class LoginSubscriber implements EventSubscriberInterface
         $user = $event->getUser();
 
         // Safety check: ensure a user object exists
-        if (!$user) {
+        if (!$user instanceof User) {
             return;
         }
 
