@@ -2,49 +2,51 @@
 {% block body %}
     <div class="container my-5">
         <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-5">
-                <div class="text-center mb-4">
-                    <img src="{{ asset('assets/logo/dmd_logo.png') }}" alt="Logo DMD" class="img-fluid mb-3" style="max-height: 80px;">
-                        <h1 class="h3">
-                            Connexion
-                        </h1>
-                    </div>
-                    {% if error %}
-                        <div class="alert alert-danger">
-                            {{ error.messageKey|trans(error.messageData, 'security') }}
+            <div class="col-md-6 col-lg-6">
+                <div class="p-4 shadow-sm rounded bg-white">
+                    <div class="text-center mb-4">
+                        <img src="{{ asset('assets/logo/dmd_logo.png') }}" alt="Logo DMD" class="form-logo img-fluid mb-3">
+                            <h1 class="h3">
+                                Connexion
+                            </h1>
                         </div>
-                    {% endif %}
-                    <form method="post" action="{{ path('app_login') }}" novalidate>
-                        <div class="mb-3">
-                            <label for="username" class="form-label">
-                                Identifiant
-                            </label>
-                            <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}" required autofocus></div>
+                        {% if error %}
+                            <div class="alert alert-danger">
+                                {{ error.messageKey|trans(error.messageData, 'security') }}
+                            </div>
+                        {% endif %}
+                        <form method="post" action="{{ path('app_login') }}" novalidate>
                             <div class="mb-3">
-                                <label for="password" class="form-label">
-                                    Mot de passe
+                                <label for="username" class="form-label">
+                                    Identifiant
                                 </label>
-                                <input type="password" id="password" name="_password" class="form-control" required></div>
-                                {# CSRF protection #}
-                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                                    {# Redirection après connexion #}
-                                    <input type="hidden" name="_target_path" value="{{ path('app_account') }}">
-                                        <button type="submit" class="btn btn-success w-100 mt-3">
-                                            Se connecter
-                                        </button>
-                                    </form>
-                                    <div class="text-center mt-4">
-                                        <p class="mb-1">
-                                            Pas encore de compte ?
-                                            <a href="{{ path('app_register') }}">
-                                                Inscrivez-vous
-                                            </a>
-                                        </p>
-                                        <p class="mb-0">
-                                            <a href="{{ path('app_forgot_password') }}">
-                                                Mot de passe oublié ?
-                                            </a>
-                                        </p>
+                                <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}" required autofocus></div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">
+                                        Mot de passe
+                                    </label>
+                                    <input type="password" id="password" name="_password" class="form-control" required></div>
+                                    {# CSRF protection #}
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                        {# Redirection after login #}
+                                        <input type="hidden" name="_target_path" value="{{ path('app_account') }}">
+                                            <button type="submit" class="btn btn-success w-100 mt-3">
+                                                Se connecter
+                                            </button>
+                                        </form>
+                                        <div class="text-center mt-4">
+                                            <p class="mb-1">
+                                                Pas encore de compte ?
+                                                <a href="{{ path('app_register') }}">
+                                                    Inscrivez-vous
+                                                </a>
+                                            </p>
+                                            <p class="mb-0">
+                                                <a href="{{ path('app_forgot_password') }}">
+                                                    Mot de passe oublié ?
+                                                </a>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

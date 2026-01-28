@@ -1,17 +1,26 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="container my-5">
-        <div class="form-bloc">
-            <div class="form-logo text-center">
-                <img src="{{ asset('assets/logo/dmd_logo.png') }}" alt="dmd logo" class="img-fluid"></div>
-                <h1 class="my-5">
-                    Inscription
-                </h1>
-                {{ form(registerForm) }}
-                    <br/>
-                    <a href="{{ path('app_login') }}">
-                        Me Connecter
-                    </a>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-6">
+                <div class="p-4 shadow-sm rounded bg-white">
+                    <div class="text-center mb-4">
+                        <img src="{{ asset('assets/logo/dmd_logo.png') }}" alt="Logo DMD" class="form-logo img-fluid mb-3">
+                            <h1 class="h3">
+                                Inscription
+                            </h1>
+                        </div>
+                        {{ form(registerForm) }}
+                            <div class="text-center mt-4">
+                                <p class="mb-0">
+                                    Déjà un compte ?
+                                    <a href="{{ path('app_login') }}">
+                                        Se connecter
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         {% endblock %}
