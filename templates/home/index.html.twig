@@ -48,6 +48,9 @@
         <div class="container marketing">
             <!-- Produits mis en avant -->
             <div class="row">
+                <h1  id="newCollection" class="text-center mb-5">
+                    Nos nouveautés
+                </h1>
                 {% for product in productInHomepage %}
                     <div class="col-lg-4 text-center">
                         <img src="/uploads/products/{{ product.illustration }}" class="img-fluid mb-3" alt="{{ product.name }}">
