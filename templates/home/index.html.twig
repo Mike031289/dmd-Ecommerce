@@ -3,15 +3,15 @@
     <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
         <div class="carousel-indicators">
             {% if headers|length > 1 %}
-                {% for key,header in headers %}
+                {% for key, header in headers %}
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="{{ key }}" {% if key == 0 %} class="active" aria-current="true" {% endif %} aria-label="{{ header.title }}"></button>
                 {% endfor %}
             {% endif %}
         </div>
         <div class="carousel-inner">
-            {% for key,header in headers %}
+            {% for key, header in headers %}
                 <div class="carousel-item {% if key == 0 %}active{% endif %}">
-                    <img src="/uploads/header/{{ header.illustration }}" class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveaspectratio="xMidYMid slice" focusable="false">
+                    <img src="/uploads/header/{{ header.illustration }}" class="d-block w-100" alt="{{ header.title }}">
                         <div class="container">
                             <div class="carousel-caption text-start">
                                 <h1>
@@ -21,7 +21,7 @@
                                     {{ header.content|raw }}
                                 </p>
                                 <p>
-                                    <a class="btn btn-lg btn-primary" href="{{ header.buttonLink }}">
+                                    <a class="btn btn-lg carousel-caption-btn" href="{{ header.buttonLink }}">
                                         {{ header.buttonTitle }}
                                     </a>
                                 </p>
@@ -32,127 +32,108 @@
             </div>
             {% if headers|length > 1 %}
                 <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="carousel-control-prev-icon"></span>
                     <span class="visually-hidden">
                         Previous
                     </span>
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="carousel-control-next-icon"></span>
                     <span class="visually-hidden">
                         Next
                     </span>
                 </button>
             {% endif %}
         </div>
-        <!-- Marketing messaging and featurettes ================================================== -->
-        <!-- Wrap the rest of the page in another container to center all the content. -->
         <div class="container marketing">
-            <!-- Three columns of text below the carousel -->
+            <!-- Produits mis en avant -->
             <div class="row">
                 {% for product in productInHomepage %}
-                    <div class="col-lg-4">
-                        <img src="/uploads/products/{{ product.illustration }}" class="bd-placeholder-img" width="80%" height="50%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveaspectratio="xMidYMid slice" focusable="false">
-                            <title>
-                                Placeholder
-                            </title>
-                            <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
-                        </svg>
-                        <h2 class="fw-normal">
-                            {{ product.name }}
-                        </h2>
-                        <p>
-                            {{ product.description|raw }}
-                        </p>
-                        <p>
-                            <a class="btn btn-secondary" href="{{ path('app_product', {'slug': product.slug }) }}">
-                                Découvrir &raquo;
-                            </a>
-                        </p>
-                    </div>
-                <!-- /.col-lg-4 -->
-                {% endfor %}
-            <!-- /.col-lg-4 -->
-            </div>
-            <!-- /.row -->
-            <!-- START THE FEATURETTES -->
-            <hr class="featurette-divider">
-                <div class="row featurette">
-                    <div class="col-md-7">
-                        <h2 class="featurette-heading fw-normal lh-1">
-                            First featurette heading.
-                            <span class="text-body-secondary">
-                                It’ll blow your mind.
-                            </span>
-                        </h2>
-                        <p class="lead">
-                            Some great placeholder content for the first featurette here. Imagine some exciting prose here.
-                        </p>
-                    </div>
-                    <div class="col-md-5">
-                        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveaspectratio="xMidYMid slice" focusable="false">
-                            <title>
-                                Placeholder
-                            </title>
-                            <rect width="100%" height="100%" fill="var(--bs-secondary-bg)" />
-                            <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">
-                                500x500
-                            </text>
-                        </svg>
-                    </div>
+                    <div class="col-lg-4 text-center">
+                        <img src="/uploads/products/{{ product.illustration }}" class="img-fluid mb-3" alt="{{ product.name }}">
+                            <h2 class="fw-normal">
+                                {{ product.name }}
+                            </h2>
+                            <p>
+                                {{ product.description|raw }}
+                            </p>
+                            <p>
+                                <a class="btn btn-secondary" href="{{ path('app_product', {'slug': product.slug}) }}">
+                                    Découvrir
+                                </a>
+                            </p>
+                        </div>
+                    {% endfor %}
                 </div>
+                <!-- Featurette 1 -->
                 <hr class="featurette-divider">
                     <div class="row featurette">
-                        <div class="col-md-7 order-md-2">
+                        <div class="col-md-7">
                             <h2 class="featurette-heading fw-normal lh-1">
-                                Oh yeah, it’s that good.
+                                Interface simple
                                 <span class="text-body-secondary">
-                                    See for yourself.
+                                    Navigation claire
                                 </span>
                             </h2>
                             <p class="lead">
-                                Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.
+                                Présentation sobre des produits avec une mise en page lisible.
                             </p>
                         </div>
-                        <div class="col-md-5 order-md-1">
-                            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveaspectratio="xMidYMid slice" focusable="false">
-                                <title>
-                                    Placeholder
-                                </title>
-                                <rect width="100%" height="100%" fill="var(--bs-secondary-bg)" />
+                        <div class="col-md-5">
+                            <svg class="bd-placeholder-img bd-placeholder-img-lg img-fluid mx-auto" width="500" height="500" role="img" aria-label="Placeholder">
+                                <rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect>
                                 <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">
                                     500x500
                                 </text>
                             </svg>
                         </div>
                     </div>
+                    <!-- Featurette 2 -->
                     <hr class="featurette-divider">
                         <div class="row featurette">
-                            <div class="col-md-7">
+                            <div class="col-md-7 order-md-2">
                                 <h2 class="featurette-heading fw-normal lh-1">
-                                    And lastly, this one.
+                                    Projet Symfony
                                     <span class="text-body-secondary">
-                                        Checkmate.
+                                        Architecture MVC
                                     </span>
                                 </h2>
                                 <p class="lead">
-                                    And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.
+                                    Application développée avec Symfony, Twig et une base de données.
                                 </p>
                             </div>
-                            <div class="col-md-5">
-                                <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveaspectratio="xMidYMid slice" focusable="false">
-                                    <title>
-                                        Placeholder
-                                    </title>
-                                    <rect width="100%" height="100%" fill="var(--bs-secondary-bg)" />
+                            <div class="col-md-5 order-md-1">
+                                <svg class="bd-placeholder-img bd-placeholder-img-lg img-fluid mx-auto" width="500" height="500" role="img" aria-label="Placeholder">
+                                    <rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect>
                                     <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">
                                         500x500
                                     </text>
                                 </svg>
                             </div>
                         </div>
-                        <hr class="featurette-divider"><!-- /END THE FEATURETTES -->
-                        </div>
-                    <!-- /.container -->
-                    {% endblock %}
-                    
+                        <!-- Featurette 3 -->
+                        <hr class="featurette-divider">
+                            <div class="row featurette">
+                                <div class="col-md-7">
+                                    <h2 class="featurette-heading fw-normal lh-1">
+                                        Fonctionnalités essentielles
+                                        <span class="text-body-secondary">
+                                            Sans surcharge
+                                        </span>
+                                    </h2>
+                                    <p class="lead">
+                                        Catalogue produits, pages dynamiques et navigation basique.
+                                    </p>
+                                </div>
+                                <div class="col-md-5">
+                                    <svg class="bd-placeholder-img bd-placeholder-img-lg img-fluid mx-auto" width="500" height="500" role="img" aria-label="Placeholder">
+                                        <rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect>
+                                        <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">
+                                            500x500
+                                        </text>
+                                    </svg>
+                                </div>
+                            </div>
+                            <hr class="featurette-divider"></div>
+                        {% endblock %}
+                        
