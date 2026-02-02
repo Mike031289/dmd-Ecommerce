@@ -17,6 +17,7 @@
             <link href="{{ asset('assets/css/form.css') }}" rel="stylesheet">
             <link href="{{ asset('assets/css/error-page.css') }}" rel="stylesheet">
             <link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet">
+            <link href="{{ asset('assets/css/payement-icone.css') }}" rel="stylesheet">
         {% endblock %}
         {% block javascripts %}
             <script src="https://unpkg.com/feather-icons"></script>
@@ -36,7 +37,7 @@
                         <ul class="navbar-nav me-auto mb-2 mb-md-0">
                             {# <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">
-                                    Accueil
+                                Accueil
                                 </a>
                             </li> #}
                             {% for category in allCategories %}
@@ -89,12 +90,24 @@
             {% block body %}{% endblock %}
             <!-- FOOTER -->
             <footer class="container py-5 mt-5 border-top text-center">
-                <p>
-                    &copy; 2025 Dmd-prod
+                <!-- Moyens de paiement -->
+                <div class="payment-methods mb-3">
+                    <span class="payment-title">
+                        Paiement sécurisé
+                    </span>
+                    <div class="payment-icons">
+                        <img src="{{ asset('assets/icone/creditcard.svg') }}" alt="Visa">
+                        <img src="{{ asset('assets/icone/mastercard.svg') }}" alt="Mastercard">
+                        <img src="{{ asset('assets/icone/paypal-disabled.svg') }}" alt="PayPal">
+                        <img src="{{ asset('assets/icone/applepay.svg') }}" alt="Apple Pay">
+                    </div>
+                </div>
+                <p class="mb-0">
+                    &copy; 2025 Dmd-prod ·
                     <a class="text-dark" href="#">
                         CGV
                     </a>
-                    &middot;
+                    ·
                     <a class="text-dark" href="#">
                         CGU
                     </a>
