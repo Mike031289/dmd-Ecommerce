@@ -1,48 +1,69 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="container my-5">
-        <!-- Titre de la catégorie -->
-        <h1 class="mb-3 fw-bold d-flex align-items-center gap-2 text-dark">
-            <i data-feather="grid" class="text-accent" style="width:28px; height:28px;"></i>
-            {{ category.name }}
+        <h1 class="text-center mb-5">
+            Nos catégories de produits
+            <p class="text-muted fs-5 mt-3">
+                (
+                <span class="fw-bold text-accent">
+                    {{ categorys|length }}
+                </span>
+                catégories au total
+                )
+            </p>
         </h1>
-        <p class="text-muted">
-            Cette catégorie contient
-            <span class="fw-bold text-accent">
-                {{ category.products|length }}
-            </span>
-            produit(s).
-        </p>
-        <!-- Grille des produits -->
-        <div class="row g-4">
-            {% for product in category.products %}
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="card h-100 border-0 shadow-sm rounded-4 hover-card bg-white">
-                        <!-- Image produit -->
-                        <a href="{{ path('app_product', { 'slug': product.slug }) }}" class="text-decoration-none text-dark">
-                            <img src="/uploads/products/{{ product.illustration }}" class="card-img-top rounded-top product-img" alt="{{ product.name }}">
-                                <div class="card-body text-center">
-                                    <!-- Nom produit -->
-                                    <h6 class="fw-bold mb-2">
-                                        {{ product.name }}
-                                    </h6>
-                                    <!-- Prix -->
-                                    <p class="text-accent fw-bold mb-3">
-                                        {{ product._getPriceWt|price }}
-                                    </p>
-                                    <!-- Bouton -->
-                                    <a href="{{ path('app_cart_add', { 'id': product.id } ) }}" class="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center gap-card">
-                                        <i data-feather="shopping-bag"></i>
-                                        Ajouter au panier
-                                    </a>
-                                </div>
-                            </a>
+        {# Loop through categories #}
+        {% for category in categorys %}
+            {# Category header #}
+            <div class="mb-4">
+                <h2 class="fw-bold d-flex align-items-center gap-3 text-dark">
+                    <i data-feather="grid" class="text-accent" style="width:26px; height:26px;"></i>
+                    {{ category.name }}
+                    {# Show link only if category has products #}
+                    {% if category.products|length > 0 %}
+                        <a href="{{ path('app_category', { 'slug': category.slug }) }}" class="fs-6 text-decoration-none text-accent fw-semibold">
+                            Voir la catégorie →
+                        </a>
+                    {% endif %}
+                </h2>
+                <p class="text-muted">
+                    Cette catégorie contient
+                    <span class="fw-bold text-accent">
+                        {{ category.products|length }}
+                    </span>
+                    produit(s).
+                </p>
+            </div>
+            {# Product grid for the category #}
+            <div class="row g-4 mb-5">
+                {% for product in category.products %}
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 hover-card bg-white">
+                            <a href="{{ path('app_product', { 'slug': product.slug }) }}" class="text-decoration-none text-dark">
+                                <img src="/uploads/products/{{ product.illustration }}" class="card-img-top rounded-top product-img" alt="{{ product.name }}">
+                                    <div class="card-body text-center">
+                                        <h6 class="fw-bold mb-2">
+                                            {{ product.name }}
+                                        </h6>
+                                        <p class="text-accent fw-bold mb-3">
+                                            {{ product._getPriceWt|price }}
+                                        </p>
+                                        <a href="{{ path('app_cart_add', { 'id': product.id }) }}" class="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center gap-card">
+                                            <i data-feather="shopping-bag"></i>
+                                            Ajouter au panier
+                                        </a>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    {% else %}
+                        <p class="text-muted">
+                            Aucun produit dans cette catégorie.
+                        </p>
+                    {% endfor %}
+                </div>
+                <hr class="my-5">
                 {% endfor %}
             </div>
-        </div>
-    </div>
-{% endblock %}
-    
-
+        {% endblock %}
+        

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container my-5">
+        <h1 class="mb-3 fw-bold d-flex align-items-center gap-2 text-dark">
+            <i data-feather="grid" class="text-accent" style="width:28px; height:28px;"></i>
+            {{ category.name }}
+        </h1>
+        <p class="text-muted">
+            Cette catégorie contient
+            <span class="fw-bold text-accent">
+                {{ category.products|length }}
+            </span>
+            produit(s).
+        </p>
+        <!-- products grilles -->
+        <div class="row g-4">
+            {% for product in category.products %}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 hover-card bg-white">
+                        <a href="{{ path('app_product', { 'slug': product.slug }) }}" class="text-decoration-none text-dark">
+                            <img src="/uploads/products/{{ product.illustration }}" class="card-img-top rounded-top product-img" alt="{{ product.name }}">
+                                <div class="card-body text-center">
+                                    <h6 class="fw-bold mb-2">
+                                        {{ product.name }}
+                                    </h6>
+                                    <p class="text-accent fw-bold mb-3">
+                                        {{ product._getPriceWt|price }}
+                                    </p>
+                                    <a href="{{ path('app_cart_add', { 'id': product.id } ) }}" class="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center gap-card">
+                                        <i data-feather="shopping-bag"></i>
+                                        Ajouter au panier
+                                    </a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {# Btn to All category #}
+            <div class="text-center mt-5">
+                <a href="{{ path('app_categorys') }}" class="btn btn-outline-dark px-4 py-2 d-inline-flex align-items-center gap-2">
+                    <i data-feather="arrow-left"></i>
+                    Voir toutes les catégories
+                </a>
+            </div>
+        </div>
+    {% endblock %}
+    
