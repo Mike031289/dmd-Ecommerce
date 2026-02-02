@@ -7,8 +7,8 @@
             Me déconnecter
         </a>
         {% if is_granted('ROLE_ADMIN') %}
-            <a class="nav-link" href="{{ path('admin') }}">
-                Administration
+            <a class="nav-link" href="{{ path('admin') }}" target="_blank" rel="noopener noreferrer">
+                Espace administrateur
             </a>
         {% endif %}
         <a class="nav-link" href="{{ path('app_account_modify_pwd') }}">
