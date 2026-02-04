@@ -6,13 +6,13 @@
             <h2 class="mb-4">
                 Agir sur la commande
             </h2>
-            <a href="{{ current_url }}&state=2" class="{% if order.state == 2 %} d-none    {% endif %} btn btn-info btn-sm my-2">
+            <a href="{{ current_url }}&state=2" class="{% if order.state == 2 %} d-none    {% endif %} btn text-bg-warning p-2 btn-sm my-2 text-white">
                 Commande en cours de préparation
             </a>
-            <a href="{{ current_url }}&state=3" class="{% if order.state == 3 %} d-none  {% endif %} btn btn-warning btn-sm my-2">
+            <a href="{{ current_url }}&state=3" class="{% if order.state == 3 %} d-none  {% endif %} btn text-bg-info p-2 btn-sm my-2 text-white">
                 Commande expédiée
             </a>
-            <a href="{{ current_url }}&state=4" class="{% if order.state == 4 %} d-none   {% endif %} btn btn-danger btn-sm my-2 text-white">
+            <a href="{{ current_url }}&state=4" class="{% if order.state == 4 %} d-none   {% endif %} btn text-bg-danger p-2 btn-sm my-2 text-white">
                 Commande annulée
             </a>
             <hr>
@@ -24,7 +24,7 @@
         {# display this invoice download link button only if order is paid and in progress or completed  #}
         {% if order.state >= 1 and order.state <= 4 %}
             <div class="mb-3">
-                <a target="_blank" href="{{ path('app_invoice_admin', {id_order : order.id}) }}" class="btn btn-sm btn-primary mr-3">
+                <a target="_blank" href="{{ path('app_invoice_admin', {id_order : order.id}) }}" class="btn btn-sm text-bg-primary p-2 mr-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 6px;">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0-4-4m4 4 4-4M20 20H4" />
                     </svg>
