@@ -1,23 +1,17 @@
-###> symfony/framework-bundle ###
+### Symfony ###
+/.env
 /.env.local
-/.env.local.php
 /.env.*.local
+/.env.local.php
+
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
 /vendor/
-###< symfony/framework-bundle ###
 
-###> phpunit/phpunit ###
+### PHPUnit ###
 /phpunit.xml
 .phpunit.result.cache
-###< phpunit/phpunit ###
 
-###> symfony/phpunit-bridge ###
-.phpunit.result.cache
-/phpunit.xml
-###< symfony/phpunit-bridge ###
-
-###> phpstan/phpstan ###
-phpstan.neon
-###< phpstan/phpstan ###
+### PHPStan ###
+/phpstan.neon
