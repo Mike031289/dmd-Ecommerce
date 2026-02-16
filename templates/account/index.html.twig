@@ -11,14 +11,14 @@
                     Mes dernières commandes
                 </h5>
                 {% if orders|length == 0 %}
-                    <div class="alert alert-info m-3" role="alert">
+                    <div class="alert alert-warning m-3" role="alert">
                         <p>
                             Vous n'avez pas encore passé de commande.
                         </p>
-                        <a href="{{ path('app_home') }}" class="btn btn-dark">
-                            Retour à la boutique
-                        </a>
                     </div>
+                    <a href="{{ path('app_home') }}" class="btn btn-dark m-3">
+                        Retour à la boutique
+                    </a>
                 {% else %}
                     <div class="card-body text-dark">
                         <table class="table table-striped table-hover">
@@ -48,22 +48,22 @@
                                             {{ order.id }}
                                         </th>
                                         <td>
-                                            {{  order.createdAt|date('d/m/Y')  }}
+                                            {{ order.createdAt|date('d/m/Y') }}
                                         </td>
                                         <td>
-                                            {{ include('admin/state.html.twig', {field: { 'value' : order.state }}) }}
+                                            {{ include('admin/state.html.twig', {field: { 'value' : order.state }}
+                                            ) }}
                                         </td>
                                         <td>
-                                            {{ (order.totalWt|price)}}
+                                            {{ (order.totalWt|price) }}
                                         </td>
                                         <td>
                                             <a href="{{ path('app_account_order', {'id_order': order.id}) }}" class="btn btn-sm btn-secondary">
-                                            Voir...
+                                                Voir...
                                             </a>
                                         </td>
-                                    </tr>   
+                                    </tr>
                                 {% endfor %}
-                                
                             </tbody>
                         </table>
                     </div>
