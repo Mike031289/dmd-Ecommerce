@@ -8,6 +8,7 @@
 /public/bundles/
 /var/
 /vendor/
+/node_modules/
 
 ### PHPUnit ###
 /phpunit.xml
