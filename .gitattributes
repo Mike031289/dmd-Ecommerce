@@ -1,0 +1,5 @@
+# Ignore front files in GitHub language stats
+
+templates/* linguist-language=PHP
+assets/* linguist-vendored
+public/* linguist-vendored
